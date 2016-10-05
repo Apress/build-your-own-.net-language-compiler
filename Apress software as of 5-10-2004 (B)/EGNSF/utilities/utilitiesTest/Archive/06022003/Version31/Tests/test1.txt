@@ -1,0 +1,10 @@
+Option Strict
+Public Function Function1 As String
+    Sub1
+    Function1    
+End Function
+Public Sub Sub1 
+    Function2    
+End Sub
+Public Function Function2 As String
+End Function

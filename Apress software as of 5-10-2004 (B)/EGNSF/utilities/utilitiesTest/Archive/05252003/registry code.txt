@@ -1,0 +1,111 @@
+    ' --- Registry storage of source information
+    Private SOURCEINFOSECTION_NAME As String = "sourceInfo"
+    Private SOURCEINFODATE_NAME As String = "sourceInfoDate"
+    Private SOURCEINFOCOUNT_NAME As String = "sourceInfoCount"
+    Private SOURCEINFOPROC_NAME As String = "sourceInfoProcedure"
+    Private SOURCEINFOPROCABSTRACT_NAME As String = "sourceInfoProcedureAbstract"
+    Private SOURCEINFOPROCUSESCOUNT_NAME As String = "sourceInfoUsesCount"
+    Private SOURCEINFOPROCUSES_NAME As String = "sourceInfoUses"
+    Private SOURCEINFOPROCUSEDCOUNT_NAME As String = "sourceInfoUsedCount"
+    Private SOURCEINFOPROCUSED_NAME As String = "sourceInfoUsed"
+
+
+
+        Dim datRegistry As Date
+        Dim strFileName As String = getFileName(strFileId)
+        Dim strSourceInfoSectionName As String = _
+            strFileName & "." & SOURCEINFOSECTION_NAME
+        Try
+            datRegistry = CDate(GetSetting(Application.ProductName, _
+                                           strSourceInfoSectionName, _
+                                           strFileName & "." & SOURCEINFODATE_NAME, _
+                                           CStr(Now)))
+        Catch ex As Exception
+            errorHandler("Cannot get Registry date for procedures from file " & _
+                         _OBJutilities.enquote(strFileId) & ": " & _
+                         Err.Number & " " & Err.Description, _
+                         "getProcedures", _
+                         "Returning False" & vbNewline & vbNewline & _
+                         ex.ToString)
+        End Try
+
+
+    ' -----------------------------------------------------------------
+    ' Record procedures in the Registry on behalf of getProcedures
+    '
+    '
+    Private Function getProcedures_procedures2Registry(ByRef usrProcedureTable() As TYPprocedure, _
+                                                       ByVal strFileName As String) As Boolean
+        Try
+            DeleteSetting(Application.ProductName, SOURCEINFOSECTION_NAME)
+            SaveSetting(Application.ProductName, _
+                        SOURCEINFOSECTION_NAME, _
+                        SOURCEINFODATE_NAME, _
+                        CStr(Now))
+            SaveSetting(Application.ProductName, _
+                        SOURCEINFOSECTION_NAME, _
+                        SOURCEINFOCOUNT_NAME, _
+                        CStr(UBound(usrProcedureTable)))
+            Dim intIndex1 As Integer
+            For intIndex1 = 1 To UBound(usrProcedureTable)
+                With usrProcedureTable(intIndex1)
+                    SaveSetting(Application.ProductName, _
+                                SOURCEINFOSECTION_NAME, _
+                                SOURCEINFOPROC_NAME, _
+                                .strName)
+                    SaveSetting(Application.ProductName, _
+                                SOURCEINFOSECTION_NAME, _
+                                SOURCEINFOPROCABSTRACT_NAME, _
+                                .strAbstract)
+                    SaveSetting(Application.ProductName, _
+                                SOURCEINFOSECTION_NAME, _
+                                SOURCEINFOPROCUSED_NAME, _
+                                _OBJutilities.collection2String(.colUsed))
+                    SaveSetting(Application.ProductName, _
+                                SOURCEINFOSECTION_NAME, _
+                                SOURCEINFOPROCUSES_NAME, _
+                                _OBJutilities.collection2String(.colUses))
+                End With
+            Next intIndex1
+        Catch ex As Exception
+            errorHandler("Cannot place procedure info in the Registry: " & _
+                        Err.Number & " " & Err.Description, _
+                        "getProcedures_procedures2Registry", _
+                        "Returning False" & vbNewline & vbNewline & _
+                        ex.ToString)
+            Return(False)
+        End Try
+        Return(True)
+    End Function
+
+    ' -----------------------------------------------------------------
+    ' Get procedures from registry on behalf of getProcedures
+    '
+    '
+    Private Function getProcedures_registry2Procedures(ByVal strFileName As String, _
+                                                       ByRef usrProcedureTable() As TYPprocedure) As Boolean
+        Try
+            Dim intIndex1 As Integer
+            For intIndex1 = 1 To CInt(GetSetting(Application.ProductName, _
+                                                 SOURCEINFOSECTION_NAME, _
+                                                 SOURCEINFOCOUNT_NAME, _
+                                                 "0"))
+                With usrProcedureTable(intIndex1)
+                    expandProctable(usrProcedureTable, _
+                                    GetSetting(Application.ProductName, _
+                                                 SOURCEINFOSECTION_NAME, _
+                                                 SOURCEINFOPROC_NAME, _
+                                                 "NoName" & intIndex1), _
+                                    )
+                End With
+            Next intIndex1
+        Catch ex As Exception
+            errorHandler("Cannot obtain procedure info from the Registry: " & _
+                         Err.Number & " " & Err.Description, _
+                         "getProcedures_registry2Procedures", _
+                         "Returning False" & vbNewline & vbNewline & _
+                         ex.ToString)
+            Return(False)
+        End Try
+        Return(True)
+    End Function

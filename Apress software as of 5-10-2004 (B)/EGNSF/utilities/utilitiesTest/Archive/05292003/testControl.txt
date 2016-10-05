@@ -1,0 +1,15 @@
+#Region " My own objects "
+
+' *********************************************************************
+' *                                                                   *
+' * testControl     Utilities test control                            *
+' *                                                                   *
+' *********************************************************************
+
+Private Class testControl
+    Inherits Control
+    
+    ' ***** Object state *****
+End Class
+
+#End Region ' " My own objects "

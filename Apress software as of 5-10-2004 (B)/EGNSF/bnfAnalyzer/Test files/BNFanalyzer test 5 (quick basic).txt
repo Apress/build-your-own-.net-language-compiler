@@ -1,0 +1,189 @@
+' ***** QuickBasic BNF Definition *****
+'
+' C H A N G E   R E C O R D --------------------------------------------
+'   DATE       PROGRAMMER   DESCRIPTION OF CHANGE
+' --------     ----------   --------------------------------------------
+' 01 28 04     Nilges       Fixed all undefined symbols
+' 05 09 04     Nilges       Added cls syntax
+'
+'
+' --- Immediate commands
+immediateCommand := singleImmediateCommand (":" singleImmediateCommand)*
+singleImmediateCommand := expression | explicitAssignment
+' --- Source programs
+sourceProgram := optionStmt  
+sourceProgram := sourceProgramBody
+sourceProgram := optionStmt logicalNewline sourceProgramBody
+optionStmt := Option ( "Base" ("0" | "1") ) | Explicit | Extension
+sourceProgramBody := ( openCode | moduleDefinition ) +
+openCode := statement [ logicalNewline sourceProgram ]
+logicalNewline := Newline | Colon
+statement := [UnsignedInteger | identifier Colon ] statementBody
+statementBody := ctlStatementBody | unconditionalStatementBody  |
+                 assignmentStmt
+ctlStatementBody := dim | 
+                    doHeader | 
+                    else | 
+                    endIf | 
+                    forHeader | 
+                    forNext | 
+                    if | 
+                    whileHeader | 
+                    loopOrWend 
+unconditionalStatementBody := circle |
+                              cls | 
+                              comment | 
+                              data | 
+                              end | 
+                              exit | 
+                              goSub | 
+                              goto | 
+                              input | 
+                              print | 
+                              randomize | 
+                              read | 
+                              return | 
+                              screen |
+                              stop | 
+                              trace
+' --- The statements
+' Assignment
+assignmentStmt := explicitAssignment | implicitAssignment  
+explicitAssignment := Let implicitAssignment  
+implicitAssignment := lValue "=" expression  
+lValue := typedIdentifier [ "(" subscriptList ")" ]
+subscriptList := expression [ Comma subscriptList ]
+' Circle
+circle := Circle ( expression Comma expression ) Comma expression
+' Cls (clear screen)
+cls := "CLS"
+' Comment: note: NoNewLine is text that does not contain a newline
+comment := Rem NoNewLine
+comment := Apostrophe NoNewLine
+comment := EmptyLine
+' Data statement
+data := Data constantList
+constantList := constantValue [ Comma constantList ]
+constantValue := number | string
+number := [ sign ] unsignedNumber
+sign := "+" | "-"
+unsignedNumber := UnsignedInteger | UnsignedRealNumber
+integer := [ sign ] UnsignedInteger
+' Dim
+dim := Dim dimDefinition
+dimDefinition := identifier [ ( boundList ) ] [ asClause ]
+asClause := As typeName
+typeName := Boolean | Byte | Integer | Long | Single | Double | String | Variant
+boundList := bound [ Comma boundList ]
+bound := integer [ To integer ] 
+' Do loop header
+doHeader := Do [ doCondition ]
+' Do loop closure
+doLoop := Loop [ doCondition ]
+' Do condition
+doCondition := While | Until expression	
+' else
+else := Else
+' End statement	
+end := End ' (followed immediately by newline)
+' endIf
+endIf := End If	
+endIf := EndIf	
+exit := Exit [ Do | For | While ]
+' For header
+forHeader := For lValue "=" expression To expression [ Step expression ] 
+' For next
+forNext := Next lValue
+' GoSub
+goSub := GoSub (UnsignedInteger | identifier | expression ) 
+' GoTo
+goto := GoTo (UnsignedInteger | identifier | expression )
+goto := UnsignedInteger
+' If 
+if := If expression [ Then ] unconditionalStatementBody
+if := If expression Then
+' Input
+input := Input lValueList
+lValueList := lValue [ Comma lValue ]
+' Loop or Wend 
+loopOrWend := Wend | ( Loop [ whileUntilClause ] )
+whileUntilClause := ( WHILE | UNTIL ) expression
+' Print
+print := Print expressionList [ ";" ]
+expressionList := expression [ Comma expressionList ]
+' Randomize
+randomize := Randomize
+' Read data
+read := Read lValueList
+' Return from a GoSub
+return := Return
+' SCREEN n command (does nothing)
+screen := Screen UnsignedInteger
+' Stop
+stop := Stop
+' Trace
+trace := "Trace Push" 
+trace := "Trace Off" 
+trace := "Trace Text" ("Source"|"Memory"|"Stack"|"Inst"|"Object"|"Line"|UnsignedInteger|"NoBox")*    
+trace := "Trace Headsup" ("Inst"|"Line"|UnsignedInteger)*   
+trace := "Trace HeadsupText" 
+         ("Source"|"Memory"|"Stack"|"Inst"|"Object"|"Line"|UnsignedInteger|"NoBox")*    
+trace := Trace Pop 
+' While loop header
+whileHeader := While expression
+' Do loop closure
+wend := Wend
+' --- Expressions
+expression := orFactor [ orOp expression ]        
+orOp := Or
+orOp := OrElse
+orFactor := andFactor [ andOp orFactor ]        
+andOp := And
+andOp := AndAlso
+andFactor := [ Not ] notFactor        
+notFactor := likeFactor [notFactorRHS]   
+notFactorRHS := Like likeFactor [notFactorRHS]     
+likeFactor := concatFactor [likeFactorRHS]        
+likeFactorRHS := "&" concatFactor [likeFactorRHS]        
+concatFactor := relFactor [concatFactorRHS]        
+concatFactorRHS := relOp relFactor [concatFactorRHS]     
+relFactor := addFactor [ relFactorRHS ]
+relFactorRHS := relOp relFactor [ relFactorRHS ]
+addFactor := mulFactor [addFactorRHS]
+addFactorRHS := mulOp mulFactor [addFactorRHS]     
+mulFactor := powFactor [mulFactorRHS]
+mulFactorRHS := powOp powFactor [mulFactorRHS]     
+powFactor := ("+" | "-")* term      
+term := unsignedNumber | 
+        string | 
+        lValue | 
+        True | 
+        False | 
+        functionCall | 
+        ( expression )
+functionCall := functionName "(" expressionList ")"
+functionName := Abs | Asc | Ceil | Chr | Cos | Eval | Evaluate | Floor | Int | 
+                Iif | Isnumeric | Lbound | Lcase | Left | Len | Log | 
+                Max | Min | Mid | Replace | Right | Rnd | Run | Sin | 
+                Sgn | String | Tab | Trim |
+                Ubound | Ucase | Utility
+unsignedNumber:= ( UnsignedRealNumber | UnsignedInteger ) 
+                 [ numTypeChar ]
+typedIdentifier := identifier [ typeSuffix ]
+typeSuffix := numTypeChar | CurrencySymbol
+numTypeChar := PERCENT | AMPERSAND | EXCLAMATION | POUNDSIGN
+identifier := Letter LettersNumbersUnderscores
+string := DoubleQuote AnythingExceptDoubleQuote DoubleQuote
+relOp := "<" | ">" | "=" | "<=" | ">=" | "=" | "<>"	
+addOp := "+"|"-"
+mulOp := "*"|"/"|"\"|"Mod"
+powOp := "**"|"^"
+' --- Subroutines and functions
+moduleDefinition := subDefinition | functionDefinition
+subDefinition := Sub identifier [ formalParameterList ]  
+                 openCode logicalNewline "End" [ "Sub" ]
+functionDefinition := Function identifier [ formalParameterList ] 
+                      openCode logicalNewline "End" [ "Function" ]
+formalParameterList := ( formalParameterListBody )
+formalParameterListBody := formalParameterDef [ "," formalParameterListBody ]
+formalParameterDef := [ ByVal | ByRef ] identifier ["()"] asClause

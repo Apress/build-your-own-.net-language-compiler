@@ -1,0 +1,8 @@
+assignment_statement := 
+(  cursor_variable_name
+ | ":" host_cursor_variable_name
+ | ":" host_variable_name[":" indicator_name]
+ | parameter_name
+ | plsql_table_name "(" index ")"
+ | record_name "." field_name
+ | variable_name ) ":=" expression 

@@ -1,0 +1,27 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "integerCalc", "integerCalc.vbproj", "{4D9946B0-2B71-45D7-ACAF-76B70EE7745D}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "utilities", "..\..\utilities\utilities.vbproj", "{F0F6568F-3453-401A-8244-93BECD9146D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{4D9946B0-2B71-45D7-ACAF-76B70EE7745D}.Debug.ActiveCfg = Debug|.NET
+		{4D9946B0-2B71-45D7-ACAF-76B70EE7745D}.Debug.Build.0 = Debug|.NET
+		{4D9946B0-2B71-45D7-ACAF-76B70EE7745D}.Release.ActiveCfg = Release|.NET
+		{4D9946B0-2B71-45D7-ACAF-76B70EE7745D}.Release.Build.0 = Release|.NET
+		{F0F6568F-3453-401A-8244-93BECD9146D4}.Debug.ActiveCfg = Debug|.NET
+		{F0F6568F-3453-401A-8244-93BECD9146D4}.Debug.Build.0 = Debug|.NET
+		{F0F6568F-3453-401A-8244-93BECD9146D4}.Release.ActiveCfg = Release|.NET
+		{F0F6568F-3453-401A-8244-93BECD9146D4}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

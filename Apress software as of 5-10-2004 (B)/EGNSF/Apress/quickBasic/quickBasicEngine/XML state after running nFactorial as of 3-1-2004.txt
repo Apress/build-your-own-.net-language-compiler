@@ -1,0 +1,1710 @@
+<!-- 
+***************************************************************
+*                                                             *
+* quickbasicEngine                                            *
+*                                                             *
+* This class compiles and interpretively runs a subset of the *
+* Quick Basic language. Note that the phrase Quick Basic is   *
+* the intellectual property of the Microsoft corporation.     *
+*                                                             *
+* This class was developed by                                 *
+*                                                             *
+* Edward G. Nilges                                            *
+* spinoza1111@yahoo.COM                                       *
+* http://members.screenz.com/edNilges                         *
+*                                                             *
+***************************************************************
+ -->
+<quickbasicEngine>
+    <!-- Indicates object usability -->
+    <booUsable>True</booUsable>
+    <!-- Object instance's name -->
+    <strName>quickbasicEngine0001 3/1/2004 5:06:00 PM</strName>
+    <!-- Scanner object -->
+    <objScanner>
+        
+        <!-- 
+            ********************************************************************************
+            *                                                                              *
+            * qbScanner                                                                    *
+            *                                                                              *
+            * The qbScanner class scans input source code and provides, on demand, scanned *
+            * source tokens and lines of source code. This class uses "lazy" evaluation,   *
+            * scanning the source code only when necessary, and when an unparsed token is  *
+            * requested.                                                                   *
+            *                                                                              *
+            * This class was developed commencing on 4/30/2003 by                          *
+            *                                                                              *
+            * Edward G. Nilges                                                             *
+            * spinoza1111@yahoo.COM                                                        *
+            * http://members.screenz.com/edNilges                                          *
+            *                                                                              *
+            ********************************************************************************
+             -->
+            <qbScanner>
+                <!-- Object instance name -->
+                <Name>qbScanner0001 3/1/2004 5:06:10 PM</Name>
+                <!-- True: object is usable -->
+                <Usable>True</Usable>
+                <!-- Source code -->
+                <SourceCode>
+                    &apos; ***** CALCULATION OF N FACTORIAL
+                    *****&amp;#00013&amp;#00010DIM N &amp;#00013&amp;#00010DIM
+                    F&amp;#00013&amp;#00010PRINT &quot;ENTER N&quot;&amp;#00013&amp;#00010INPUT
+                    N&amp;#00013&amp;#00010IF N&amp;lt;&amp;gt;INT(N) THEN&amp;#00013&amp;#00010
+                    PRINT &quot;N VALUE &quot; &amp; N &amp; &quot; IS NOT AN
+                    INTEGER&quot;&amp;#00013&amp;#00010 END&amp;#00013&amp;#00010END
+                    IF&amp;#00013&amp;#00010IF N&amp;lt;=0 THEN&amp;#00013&amp;#00010 PRINT
+                    &quot;N VALUE &quot; &amp; N &amp; &quot; IS NOT A POSITIVE
+                    NUMBER&quot;&amp;#00013&amp;#00010 END&amp;#00013&amp;#00010END
+                    IF&amp;#00013&amp;#00010F = 1&amp;#00013&amp;#00010DIM
+                    N2&amp;#00013&amp;#00010FOR N2 = N TO 2 STEP
+                    -1&amp;#00013&amp;#00010 F = F * N2&amp;#00013&amp;#00010NEXT
+                    N2&amp;#00013&amp;#00010PRINT &quot;THE FACTORIAL OF &quot; &amp; N &amp; &quot;
+                    IS &quot; &amp; F
+                </SourceCode>
+                <!-- Last token array entry in use -->
+                <Last>97</Last>
+                <!-- Tokens parsed -->
+                <Tokens>
+                    Apostrophe@1..1:1 &apos;
+                    Operator@3..4:1 **
+                    Operator@5..6:1 **
+                    Operator@7..7:1 *
+                    Identifier@9..19:1 CALCULATION
+                    Identifier@21..22:1 OF
+                    Identifier@24..24:1 N
+                    Identifier@26..34:1 FACTORIAL
+                    Operator@36..37:1 **
+                    Operator@38..39:1 **
+                    Operator@40..40:1 *
+                    Newline@41..42:2 &amp;#00013&amp;#00010
+                    Identifier@43..45:2 DIM
+                    Identifier@47..47:2 N
+                    Newline@49..50:3 &amp;#00013&amp;#00010
+                    Identifier@51..53:3 DIM
+                    Identifier@55..55:3 F
+                    Newline@56..57:4 &amp;#00013&amp;#00010
+                    Identifier@58..62:4 PRINT
+                    String@64..72:4 &quot;ENTER N&quot;
+                    Newline@73..74:5 &amp;#00013&amp;#00010
+                    Identifier@75..79:5 INPUT
+                    Identifier@81..81:5 N
+                    Newline@82..83:6 &amp;#00013&amp;#00010
+                    Identifier@84..85:6 IF
+                    Identifier@87..87:6 N
+                    Operator@88..89:6 &amp;lt;&amp;gt;
+                    Identifier@90..92:6 INT
+                    Parenthesis@93..93:6 (
+                    Identifier@94..94:6 N
+                    Parenthesis@95..95:6 )
+                    Identifier@97..100:6 THEN
+                    Newline@101..102:7 &amp;#00013&amp;#00010
+                    Identifier@107..111:7 PRINT
+                    String@113..122:7 &quot;N VALUE &quot;
+                    Ampersand@124..124:7 &amp;
+                    Identifier@126..126:7 N
+                    Ampersand@128..128:7 &amp;
+                    String@130..149:7 &quot; IS NOT AN INTEGER&quot;
+                    Newline@150..151:8 &amp;#00013&amp;#00010
+                    Identifier@156..158:8 END
+                    Newline@159..160:9 &amp;#00013&amp;#00010
+                    Identifier@161..163:9 END
+                    Identifier@165..166:9 IF
+                    Newline@167..168:10 &amp;#00013&amp;#00010
+                    Identifier@169..170:10 IF
+                    Identifier@172..172:10 N
+                    Operator@173..174:10 &amp;lt;=
+                    UnsignedInteger@175..175:10 0
+                    Identifier@177..180:10 THEN
+                    Newline@181..182:11 &amp;#00013&amp;#00010
+                    Identifier@187..191:11 PRINT
+                    String@193..202:11 &quot;N VALUE &quot;
+                    Ampersand@204..204:11 &amp;
+                    Identifier@206..206:11 N
+                    Ampersand@208..208:11 &amp;
+                    String@210..236:11 &quot; IS NOT A POSITIVE NUMBER&quot;
+                    Newline@237..238:12 &amp;#00013&amp;#00010
+                    Identifier@243..245:12 END
+                    Newline@246..247:13 &amp;#00013&amp;#00010
+                    Identifier@248..250:13 END
+                    Identifier@252..253:13 IF
+                    Newline@254..255:14 &amp;#00013&amp;#00010
+                    Identifier@256..256:14 F
+                    Operator@258..258:14 =
+                    UnsignedInteger@260..260:14 1
+                    Newline@261..262:15 &amp;#00013&amp;#00010
+                    Identifier@263..265:15 DIM
+                    Identifier@267..268:15 N2
+                    Newline@269..270:16 &amp;#00013&amp;#00010
+                    Identifier@271..273:16 FOR
+                    Identifier@275..276:16 N2
+                    Operator@278..278:16 =
+                    Identifier@280..280:16 N
+                    Identifier@282..283:16 TO
+                    UnsignedInteger@285..285:16 2
+                    Identifier@287..290:16 STEP
+                    Operator@292..292:16 -
+                    UnsignedInteger@293..293:16 1
+                    Newline@294..295:17 &amp;#00013&amp;#00010
+                    Identifier@300..300:17 F
+                    Operator@302..302:17 =
+                    Identifier@304..304:17 F
+                    Operator@306..306:17 *
+                    Identifier@308..309:17 N2
+                    Newline@310..311:18 &amp;#00013&amp;#00010
+                    Identifier@312..315:18 NEXT
+                    Identifier@317..318:18 N2
+                    Newline@319..320:19 &amp;#00013&amp;#00010
+                    Identifier@321..325:19 PRINT
+                    String@327..345:19 &quot;THE FACTORIAL OF &quot;
+                    Ampersand@347..347:19 &amp;
+                    Identifier@349..349:19 N
+                    Ampersand@351..351:19 &amp;
+                    String@353..358:19 &quot; IS &quot;
+                    Ampersand@360..360:19 &amp;
+                    Identifier@362..362:19 F
+                </Tokens>
+                <!-- Pending tokens available for parse -->
+                <PendingTokens>
+                    Ampersand@365..364 
+                    Apostrophe@365..364 
+                    Colon@365..364 
+                    Comma@365..364 
+                    Identifier@365..364 
+                    Newline@365..364 
+                    Operator@365..365 
+                    Parenthesis@365..365 
+                    Semicolon@365..364 
+                    String@365..364 
+                    UnsignedInteger@365..364 
+                    UnsignedRealNumber@365..364 
+                    Percent@365..364 
+                    Exclamation@365..364 
+                    Pound@365..364 
+                    Currency@365..364 
+                    Period@365..364 
+                </PendingTokens>
+                <!-- Available size of token array -->
+                <TokenArraySize>1024</TokenArraySize>
+                <!-- Current line number -->
+                <LineNumber>19</LineNumber>
+                <!-- Identifies line number, start index, length of each line -->
+                <LineIndex>(&quot;_1&quot;,1,40),(&quot;_2&quot;,43,6),(&quot;_3&quot;,51,5),(&quot;_4&quot;,58,15),(&quot;_5&quot;,75,7),(&quot;_6&quot;,84,17),(&quot;_7&quot;,103,47),(&quot;_8&quot;,152,7),(&quot;_9&quot;,161,6),(&quot;_10&quot;,169,12),(&quot;_11&quot;,183,54),(&quot;_12&quot;,239,7),(&quot;_13&quot;,248,6),(&quot;_14&quot;,256,5),(&quot;_15&quot;,263,6),(&quot;_16&quot;,271,23),(&quot;_17&quot;,296,14),(&quot;_18&quot;,312,7),(&quot;_19&quot;,321,44)</LineIndex>
+            </qbScanner>
+        
+    </objScanner>
+    <!-- Polish collection -->
+    <colPolish>
+        
+        <qbPolish001><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0005</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>20</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;ENTER N&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish001>
+            <qbPolish002><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0006</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>21</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>String:vtString(ChrW(13) &amp; ChrW(10))</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish002>
+            <qbPolish003><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0007</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opConcat</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>21</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish003>
+            <qbPolish004><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0008</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPrint</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>21</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish004>
+            <qbPolish005><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0010</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opInput</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>24</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish005>
+            <qbPolish006><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0011</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPop</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>24</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>1</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish006>
+            <qbPolish007><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0014</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>27</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>1</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish007>
+            <qbPolish008><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0015</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushIndirect</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>27</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish008>
+            <qbPolish009><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0017</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>31</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>1</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish009>
+            <qbPolish010><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0018</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushIndirect</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>31</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish010>
+            <qbPolish011><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0019</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opInt</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>31</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish011>
+            <qbPolish012><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0020</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushNE</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>32</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish012>
+            <qbPolish013><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0021</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opJumpZ</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>32</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>24</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish013>
+            <qbPolish014><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0023</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>35</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;N VALUE &quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish014>
+            <qbPolish015><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0025</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>38</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>1</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish015>
+            <qbPolish016><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0026</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushIndirect</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>38</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish016>
+            <qbPolish017><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0027</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opConcat</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>38</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish017>
+            <qbPolish018><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0028</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>39</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot; IS NOT AN INTEGER&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish018>
+            <qbPolish019><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0029</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opConcat</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>40</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish019>
+            <qbPolish020><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0030</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>40</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>String:vtString(ChrW(13) &amp; ChrW(10))</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish020>
+            <qbPolish021><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0031</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opConcat</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>40</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish021>
+            <qbPolish022><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0032</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPrint</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>40</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish022>
+            <qbPolish023><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0034</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opEnd</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>42</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>0</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish023>
+            <qbPolish024><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0039</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>48</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>1</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish024>
+            <qbPolish025><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0040</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushIndirect</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>48</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish025>
+            <qbPolish026><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0041</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>50</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>0</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish026>
+            <qbPolish027><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0042</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLE</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>50</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish027>
+            <qbPolish028><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0043</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opJumpZ</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>50</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>39</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish028>
+            <qbPolish029><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0045</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>53</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;N VALUE &quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish029>
+            <qbPolish030><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0047</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>56</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>1</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish030>
+            <qbPolish031><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0048</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushIndirect</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>56</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish031>
+            <qbPolish032><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0049</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opConcat</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>56</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish032>
+            <qbPolish033><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0050</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>57</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot; IS NOT A POSITIVE NUMBER&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish033>
+            <qbPolish034><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0051</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opConcat</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>58</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish034>
+            <qbPolish035><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0052</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>58</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>String:vtString(ChrW(13) &amp; ChrW(10))</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish035>
+            <qbPolish036><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0053</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opConcat</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>58</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish036>
+            <qbPolish037><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0054</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPrint</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>58</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish037>
+            <qbPolish038><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0056</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opEnd</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>60</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>0</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish038>
+            <qbPolish039><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0060</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>67</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>1</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish039>
+            <qbPolish040><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0061</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPop</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>67</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>2</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish040>
+            <qbPolish041><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0064</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>73</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>3</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish041>
+            <qbPolish042><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0066</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>75</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>1</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish042>
+            <qbPolish043><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0067</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushIndirect</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>75</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish043>
+            <qbPolish044><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0068</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPopIndirect</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>75</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish044>
+            <qbPolish045><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0069</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>77</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>2</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish045>
+            <qbPolish046><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0070</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opRotate</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>77</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>1</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish046>
+            <qbPolish047><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0071</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>79</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>0</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish047>
+            <qbPolish048><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0072</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>80</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>1</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish048>
+            <qbPolish049><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0073</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opSubtract</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>80</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish049>
+            <qbPolish050><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0074</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opRotate</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>80</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>1</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish050>
+            <qbPolish051><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0076</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opForTest</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>80</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>60</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish051>
+            <qbPolish052><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0079</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>84</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>2</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish052>
+            <qbPolish053><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0080</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushIndirect</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>84</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish053>
+            <qbPolish054><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0082</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>86</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>3</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish054>
+            <qbPolish055><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0083</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushIndirect</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>86</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish055>
+            <qbPolish056><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0084</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opMultiply</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>86</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish056>
+            <qbPolish057><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0085</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPop</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>86</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>2</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish057>
+            <qbPolish058><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0087</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opForIncrement</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>87</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish058>
+            <qbPolish059><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0088</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opJump</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>87</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>51</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish059>
+            <qbPolish060><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0090</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPopOff</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>87</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish060>
+            <qbPolish061><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0091</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPopOff</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>87</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish061>
+            <qbPolish062><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0092</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPopOff</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>87</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish062>
+            <qbPolish063><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0094</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>91</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;THE FACTORIAL OF &quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish063>
+            <qbPolish064><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0096</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>94</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>1</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish064>
+            <qbPolish065><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0097</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushIndirect</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>94</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish065>
+            <qbPolish066><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0098</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opConcat</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>94</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish066>
+            <qbPolish067><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0099</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>95</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot; IS &quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish067>
+            <qbPolish068><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0100</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opConcat</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>96</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish068>
+            <qbPolish069><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0102</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>98</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>2</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish069>
+            <qbPolish070><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0103</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushIndirect</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>98</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish070>
+            <qbPolish071><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0104</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opConcat</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>98</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish071>
+            <qbPolish072><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0105</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPushLiteral</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>98</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>String:vtString(ChrW(13) &amp; ChrW(10))</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish072>
+            <qbPolish073><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0106</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opConcat</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>98</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish073>
+            <qbPolish074><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0107</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opPrint</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>98</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish074>
+            <qbPolish075><qbPolish>
+                <!-- Indicates usability of object -->
+                <booUsable>True</booUsable>
+                <!-- Names the object instance -->
+                <strName>qbPolish0108</strName>
+                <!-- Identifies the op code -->
+                <enuOpCode>opEnd</enuOpCode>
+                <!-- Identifies the first token responsible for this op code -->
+                <intStartIndex>98</intStartIndex>
+                <!-- Identifies how many tokens are responsible for this op code -->
+                <intLength>1</intLength>
+                <!-- Identifies the operand (if any) -->
+                <objOperand>&quot;&quot;</objOperand>
+                <!-- Comments the opcode -->
+                <strComment></strComment>
+            </qbPolish></qbPolish075>
+        
+    </colPolish>
+    <!-- Variables -->
+    <colVariables>
+        
+        <qbVariable1><!-- 
+            **********************************************************************
+            *                                                                    *
+            * qbVariable                                                         *
+            *                                                                    *
+            * This class represents the type and value of a Quick Basic variable *
+            *                                                                    *
+            * This class was developed commencing on June 24 2003 by             *
+            *                                                                    *
+            * Edward G. Nilges                                                   *
+            * spinoza1111@yahoo.COM                                              *
+            * http://members.screenz.com/edNilges                                *
+            *                                                                    *
+            **********************************************************************
+             -->
+            <qbVariable>
+                <!-- Indicates the usability of the object -->
+                <booUsable>True</booUsable>
+                <!-- Identifies the object instance -->
+                <strName>qbVariable0001 3/1/2004 5:06:15 PM</strName>
+                <!-- Identifies the variable -->
+                <strVariableName>N</strVariableName>
+                <!-- True indicates that the variable name has default value -->
+                <booVariableNameDefaults>False</booVariableNameDefaults>
+                <!-- Dope as a qbVariableType -->
+                <objDope>
+                    <!-- 
+                        ************************************************************************************
+                        *                                                                                  *
+                        * variableType                                                                     *
+                        *                                                                                  *
+                        *                                                                                  *
+                        *                                                                                  *
+                        * This class represents the type of a quickBasicEngine variable, including support *
+                        * for an unknown type and Shared methods for relating .Net types to Quick Basic    *
+                        * types.                                                                           *
+                        *                                                                                  *
+                        * This class was developed commencing on 4/5/2003 by                               *
+                        *                                                                                  *
+                        * Edward G. Nilges                                                                 *
+                        * spinoza1111@yahoo.COM                                                            *
+                        * http://members.screenz.com/edNilges                                              *
+                        *                                                                                  *
+                        *                                                                                  *
+                        *                                                                                  *
+                        * This instance represents the following variable type:                            *
+                        *                                                                                  *
+                        * Variant containing 8-bit Byte in the range 0..255                                *
+                        *                                                                                  *
+                        *                                                                                  *
+                        *                                                                                  *
+                        * CACHE INFO                                                                       *
+                        *                                                                                  *
+                        * A cache of recently parsed variable types is maintained to save time: here is    *
+                        * the state of the cache.                                                          *
+                        *                                                                                  *
+                        * Cache status: available                                                          *
+                        * Cache maximum size: 100                                                          *
+                        * Cache current size: 21                                                           *
+                        * Cache contains: "Unknown", "Variant,Null", "Null", "String", "String"...         *
+                        *                                                                                  *
+                        ************************************************************************************
+                         -->
+                        <qbVariableType>
+                            <!-- Indicates the usability of the object -->
+                            <booUsable>True</booUsable>
+                            <!-- Identifies the object instance -->
+                            <strName>qbVariableType0199 3/1/2004 5:06:50 PM</strName>
+                            <!-- Identifies the variable's type -->
+                            <enuVariableType>vtVariant</enuVariableType>
+                            <!-- Identifies the type of a contained variable -->
+                            <objVarType>Byte</objVarType>
+                            <!-- Identifies the bounds of an array type -->
+                            <colBounds>emptyCollection</colBounds>
+                            <!-- Identifies type ordering -->
+                            <colTypeOrdering>noCollection</colTypeOrdering>
+                            <!-- Identifies type containment -->
+                            <booContained>Unallocated</booContained>
+                            <!-- User's tag -->
+                            <objTag>&quot;&quot;</objTag>
+                        </qbVariableType>
+                </objDope>
+                <!-- Value of this variable: parentheses indicate an array or UDT, represented as a collection -->
+                <objValue>System.Byte(10)</objValue>
+                <!-- User's tag -->
+                <objTag>&quot;&quot;</objTag>
+            </qbVariable></qbVariable1>
+            <qbVariable2><!-- 
+            **********************************************************************
+            *                                                                    *
+            * qbVariable                                                         *
+            *                                                                    *
+            * This class represents the type and value of a Quick Basic variable *
+            *                                                                    *
+            * This class was developed commencing on June 24 2003 by             *
+            *                                                                    *
+            * Edward G. Nilges                                                   *
+            * spinoza1111@yahoo.COM                                              *
+            * http://members.screenz.com/edNilges                                *
+            *                                                                    *
+            **********************************************************************
+             -->
+            <qbVariable>
+                <!-- Indicates the usability of the object -->
+                <booUsable>True</booUsable>
+                <!-- Identifies the object instance -->
+                <strName>qbVariable0004 3/1/2004 5:06:16 PM</strName>
+                <!-- Identifies the variable -->
+                <strVariableName>F</strVariableName>
+                <!-- True indicates that the variable name has default value -->
+                <booVariableNameDefaults>False</booVariableNameDefaults>
+                <!-- Dope as a qbVariableType -->
+                <objDope>
+                    <!-- 
+                        ************************************************************************************
+                        *                                                                                  *
+                        * variableType                                                                     *
+                        *                                                                                  *
+                        *                                                                                  *
+                        *                                                                                  *
+                        * This class represents the type of a quickBasicEngine variable, including support *
+                        * for an unknown type and Shared methods for relating .Net types to Quick Basic    *
+                        * types.                                                                           *
+                        *                                                                                  *
+                        * This class was developed commencing on 4/5/2003 by                               *
+                        *                                                                                  *
+                        * Edward G. Nilges                                                                 *
+                        * spinoza1111@yahoo.COM                                                            *
+                        * http://members.screenz.com/edNilges                                              *
+                        *                                                                                  *
+                        *                                                                                  *
+                        *                                                                                  *
+                        * This instance represents the following variable type:                            *
+                        *                                                                                  *
+                        * Variant containing 32-bit Long integer in the range -2**31..2**31-1              *
+                        *                                                                                  *
+                        *                                                                                  *
+                        *                                                                                  *
+                        * CACHE INFO                                                                       *
+                        *                                                                                  *
+                        * A cache of recently parsed variable types is maintained to save time: here is    *
+                        * the state of the cache.                                                          *
+                        *                                                                                  *
+                        * Cache status: available                                                          *
+                        * Cache maximum size: 100                                                          *
+                        * Cache current size: 21                                                           *
+                        * Cache contains: "Unknown", "Variant,Null", "Null", "String", "String"...         *
+                        *                                                                                  *
+                        ************************************************************************************
+                         -->
+                        <qbVariableType>
+                            <!-- Indicates the usability of the object -->
+                            <booUsable>True</booUsable>
+                            <!-- Identifies the object instance -->
+                            <strName>qbVariableType1070 3/1/2004 5:07:04 PM</strName>
+                            <!-- Identifies the variable's type -->
+                            <enuVariableType>vtVariant</enuVariableType>
+                            <!-- Identifies the type of a contained variable -->
+                            <objVarType>Long</objVarType>
+                            <!-- Identifies the bounds of an array type -->
+                            <colBounds>emptyCollection</colBounds>
+                            <!-- Identifies type ordering -->
+                            <colTypeOrdering>noCollection</colTypeOrdering>
+                            <!-- Identifies type containment -->
+                            <booContained>Unallocated</booContained>
+                            <!-- User's tag -->
+                            <objTag>&quot;&quot;</objTag>
+                        </qbVariableType>
+                </objDope>
+                <!-- Value of this variable: parentheses indicate an array or UDT, represented as a collection -->
+                <objValue>System.Int32(3628800)</objValue>
+                <!-- User's tag -->
+                <objTag>&quot;&quot;</objTag>
+            </qbVariable></qbVariable2>
+            <qbVariable3><!-- 
+            **********************************************************************
+            *                                                                    *
+            * qbVariable                                                         *
+            *                                                                    *
+            * This class represents the type and value of a Quick Basic variable *
+            *                                                                    *
+            * This class was developed commencing on June 24 2003 by             *
+            *                                                                    *
+            * Edward G. Nilges                                                   *
+            * spinoza1111@yahoo.COM                                              *
+            * http://members.screenz.com/edNilges                                *
+            *                                                                    *
+            **********************************************************************
+             -->
+            <qbVariable>
+                <!-- Indicates the usability of the object -->
+                <booUsable>True</booUsable>
+                <!-- Identifies the object instance -->
+                <strName>qbVariable0016 3/1/2004 5:06:29 PM</strName>
+                <!-- Identifies the variable -->
+                <strVariableName>N2</strVariableName>
+                <!-- True indicates that the variable name has default value -->
+                <booVariableNameDefaults>False</booVariableNameDefaults>
+                <!-- Dope as a qbVariableType -->
+                <objDope>
+                    <!-- 
+                        ************************************************************************************
+                        *                                                                                  *
+                        * variableType                                                                     *
+                        *                                                                                  *
+                        *                                                                                  *
+                        *                                                                                  *
+                        * This class represents the type of a quickBasicEngine variable, including support *
+                        * for an unknown type and Shared methods for relating .Net types to Quick Basic    *
+                        * types.                                                                           *
+                        *                                                                                  *
+                        * This class was developed commencing on 4/5/2003 by                               *
+                        *                                                                                  *
+                        * Edward G. Nilges                                                                 *
+                        * spinoza1111@yahoo.COM                                                            *
+                        * http://members.screenz.com/edNilges                                              *
+                        *                                                                                  *
+                        *                                                                                  *
+                        *                                                                                  *
+                        * This instance represents the following variable type:                            *
+                        *                                                                                  *
+                        * Variant containing Double-precision real number (in .Net's range)                *
+                        *                                                                                  *
+                        *                                                                                  *
+                        *                                                                                  *
+                        * CACHE INFO                                                                       *
+                        *                                                                                  *
+                        * A cache of recently parsed variable types is maintained to save time: here is    *
+                        * the state of the cache.                                                          *
+                        *                                                                                  *
+                        * Cache status: available                                                          *
+                        * Cache maximum size: 100                                                          *
+                        * Cache current size: 21                                                           *
+                        * Cache contains: "Unknown", "Variant,Null", "Null", "String", "String"...         *
+                        *                                                                                  *
+                        ************************************************************************************
+                         -->
+                        <qbVariableType>
+                            <!-- Indicates the usability of the object -->
+                            <booUsable>True</booUsable>
+                            <!-- Identifies the object instance -->
+                            <strName>qbVariableType1073 3/1/2004 5:07:04 PM</strName>
+                            <!-- Identifies the variable's type -->
+                            <enuVariableType>vtVariant</enuVariableType>
+                            <!-- Identifies the type of a contained variable -->
+                            <objVarType>Double</objVarType>
+                            <!-- Identifies the bounds of an array type -->
+                            <colBounds>emptyCollection</colBounds>
+                            <!-- Identifies type ordering -->
+                            <colTypeOrdering>noCollection</colTypeOrdering>
+                            <!-- Identifies type containment -->
+                            <booContained>Unallocated</booContained>
+                            <!-- User's tag -->
+                            <objTag>&quot;&quot;</objTag>
+                        </qbVariableType>
+                </objDope>
+                <!-- Value of this variable: parentheses indicate an array or UDT, represented as a collection -->
+                <objValue>System.Double(1)</objValue>
+                <!-- User's tag -->
+                <objTag>&quot;&quot;</objTag>
+            </qbVariable></qbVariable3>
+        
+    </colVariables>
+    <!-- Collection utilities -->
+    <objCollectionUtilities>collectionUti...</objCollectionUtilities>
+    <!-- Indicates compiled status -->
+    <booCompiled>True</booCompiled>
+    <!-- Indicates assembler status -->
+    <booAssembled>True</booAssembled>
+    <!-- Source code type -->
+    <enuSourceCodeType>program</enuSourceCodeType>
+    <!-- Constant folding -->
+    <booConstantFolding>False</booConstantFolding>
+    <!-- Removal of "degenerate" operations -->
+    <booDegenerateOpRemoval>False</booDegenerateOpRemoval>
+    <!-- Value of recent immediate expression -->
+    <objImmediateResult>&quot;&quot;</objImmediateResult>
+    <!-- Indicates whether Option Explicit is in effect -->
+    <booExplicit>False</booExplicit>
+    <!-- Subroutine/function table -->
+    <usrSubFunction><subFunctionTable></subFunctionTable></usrSubFunction>
+    <!-- Subroutine/function table index -->
+    <colSubFunctionIndex>emptyCollection</colSubFunctionIndex>
+    <!-- Constant expression table -->
+    <usrConstantExpression><constantExpressionTable></constantExpressionTable></usrConstantExpression>
+    <!-- Constant expression table index -->
+    <colConstantExpressionIndex>emptyCollection</colConstantExpressionIndex>
+    <!-- Index of the oldest constant expression -->
+    <intOldestConstantIndex>0</intOldestConstantIndex>
+    <!-- Label sequence number -->
+    <intLabelSeq>4</intLabelSeq>
+    <!-- Read Data queue -->
+    <colReadData>emptyCollection</colReadData>
+    <!-- Next Read Data index -->
+    <intReadDataIndex>1</intReadDataIndex>
+    <!-- Label collection for CoGo -->
+    <colLabel>(System.String&amp;#00040&quot;_LBL1&quot;&amp;#00041&amp;#00044System.Int32&amp;#0004024&amp;#00041),(System.String&amp;#00040&quot;_LBL2&quot;&amp;#00041&amp;#00044System.Int32&amp;#0004039&amp;#00041),(System.String&amp;#00040&quot;_LBL3&quot;&amp;#00041&amp;#00044System.Int32&amp;#0004051&amp;#00041),(System.String&amp;#00040&quot;_LBL4&quot;&amp;#00041&amp;#00044System.Int32&amp;#0004060&amp;#00041)</colLabel>
+    <!-- True: use the assembler to remove comments and labels -->
+    <booAssemblyRemovesCode>True</booAssemblyRemovesCode>
+    <!-- Event log -->
+    <colEventLog>noCollection</colEventLog>
+    <!-- True: inspect compiler objects -->
+    <booInspectCompilerObjects>False</booInspectCompilerObjects>
+    <!-- Thread status -->
+    <threadStatus>Running: 1 thread(s) are running</threadStatus>
+</quickbasicEngine>

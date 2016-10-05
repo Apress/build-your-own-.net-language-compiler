@@ -1,0 +1,445 @@
+
+' *********************************************************************
+' *                                                                   *
+' * quickBasicEngine     quickBasicEngine                             *
+' *                                                                   *
+' *                                                                   *
+' * This class does all scanning, parsing and interpretation for my   *
+' * version of Quick Basic. It may be "dropped in" to a .Net          *
+' * application and it will provide the ability to evaluate immediate *
+' * Basic expressions as well as compile and run Basic programs.      *
+' *                                                                   *
+' * The rest of this comment block describes the following topics.    *
+' *                                                                   *
+' *                                                                   *
+' *      *  The quickBasicEngine data model                           *
+' *      *  The quickBasicEngine state                                *
+' *      *  Properties, methods, and events of this class             *
+' *      *  Multithreading considerations                             *
+' *      *  Compile-time symbols                                      *
+' *                                                                   *
+' *                                                                   *
+' * THE QUICKBASICENGINE DATA MODEL --------------------------------- *
+' *                                                                   *
+' * The state of this class consists of all source code for a program,*
+' * its scanned representation, a parse tree that ties source and     *
+' * output code, the output code, and the names and the structured    *
+' * values of all variables found in the code.                        *
+' *                                                                   *
+' *                                                                   *
+' * THE QUICKBASICENGINE STATE -------------------------------------- *
+' *                                                                   *
+' * The state of the quickBasicEngine consists of the following.      *
+' *                                                                   *
+' *                                                                   *
+' *      *  booUsable: the object usability switch                    *
+' *                                                                   *
+' *      *  strName: the object instance name                         *
+' *                                                                   *
+' *      *  objScanner: the just-in-time scanner including the source *
+' *         code                                                      *
+' *                                                                   *
+' *      *  objParseTree: the parse tree                              *
+' *                                                                   *
+' *      *  colPolish: the collection, of qbPolish objects, generated *
+' *         for the source code by the quickBasicEngine's parser.     *
+' *         This is an unkeyed collection.                            *
+' *                                                                   *
+' *      *  colVariables: the collection, of qbVariable objects,      *
+' *         generated for the source code by the quickBasicEngine's   *
+' *         parser.                                                   *
+' *                                                                   *
+' *         This collection is keyed using the name of the variable.  *
+' *         The Tag property of each member is set to the index of the*
+' *         variable object in the collection.                        * 
+' *                                                                   *
+' *      *  objCollectionUtiities: A collectionUtilities object to    *
+' *         support collections                                       *
+' *                                                                   *
+' *      *  booAssembled: indicates whether the code has been         *
+' *         assembled in addition to being compiled                   * 
+' *                                                                   *
+' *      *  enuSourceCodeType: indicates the type of the source code: *
+' *                                                                   *
+' *         + Unknown: not set                                        *
+' *         + Immediate: immediate expression for immediate evaluation*
+' *         + Program: full-scale source program                      *
+' *                                                                   *
+' *      *  booConstantFolding: indicates whether compile time        *
+' *         "folding" (evaluation) is in effect                       * 
+' *                                                                   *
+' *      *  booDegenerateOpRemoval: indicates whether compile time    *
+' *         removal of "degenerate" operations including addition of  *
+' *         zero and multiplication by one is in effect               * 
+' *                                                                   *
+' *      *  objImmediateResult: saves the result of the most recent   *
+' *         operation (as a qbVariable)                               *
+' *                                                                   *
+' *      *  booExplicit: indicates whether the current source code    *
+' *         is a full program containing the Option Explicit          *
+' *         directive                                                 *
+' *                                                                   *
+' *      *  usrSubFunction: table of subroutines and functions        *
+' *                                                                   *
+' *      *  colSubFunctionIndex: index to table of subroutines and    *
+' *         functions                                                 *
+' *                                                                   *
+' *                                                                   *
+' * PROPERTIES, METHODS, AND EVENTS OF THIS CLASS ------------------- *
+' *                                                                   *
+' * Properties of this class start with an upper case letter; methods *
+' * and events with a lower case letter; events end in Event.         *
+' *                                                                   *
+' * At any time, instance of this class are usable or nonusable. At   *
+' * the end of a successful New constructor the instance becomes      *
+' * usable, whereas a successful or failed execution of dispose makes *
+' * the object unusable.                                              *
+' *                                                                   *
+' * A serious internal error: failure to create a resource: or "object*
+' * abuse" (using the object after a serious error, externally        *
+' * reported) makes the object not usable. The mkUnusable method may  *
+' * also be used to force the object into the unusable state, and the *
+' * Usable property tells the caller whether the object is usable.    *
+' *                                                                   *
+' * Any method, which does not otherwise return a value, will return  *
+' * True on success or False on failure.                              *
+' *                                                                   *
+' * Note that this object is ICloneable; see the clone method.        *
+' *                                                                   *
+' *                                                                   *
+' * About: this shared, read-only property returns information about  *
+' *      this class                                                   *
+' *                                                                   *
+' * assemble: this method assembles the Polish tokens, replacing      *
+' *      symbolic labels with numeric addresses. It is a two-pass     *
+' *      assembler: pass one constructs the dictionary mapping labels *
+' *      to locations, and pass two replaces the labels.              *
+' *                                                                   *
+' * assembled: this method returns True if the current source code has*
+' *      been assembled, False otherwise                              *
+' *                                                                   *
+' * ClassName: this shared, read-only property returns the cool name  *
+' *      of this class: quickBasicEngine                              *
+' *                                                                   *
+' * clear: this method clears the source code and resets the parse.   *
+' *                                                                   *
+' * clone: this method implements ICloneable and returns a clone of   *
+' *      the instance object. The clone is guaranteed to have the same*
+' *      global properties such as SourceCode but it won't necessarily*
+' *      be in the identical state as the instance object: the clone  *
+' *      will be in the unscanned, uncompiled state.                  * 
+' *                                                                   *
+' *      The clone when passed to the compareTo method will return    *
+' *      True.                                                        *
+' *                                                                   *
+' *      The clone method implements the ICloneable interface.        *
+' *                                                                   *
+' * compareTo(o): this method compares the instance object to the     *
+' *      quickBasicEngine o and returns True when o clones the        *
+' *      instance. o clones the instance when the source code of o and*
+' *      that of the instance is identical except for white space and *
+' *      all global options such as the ConstantFolding property are  *
+' *      the same.                                                    * 
+' *                                                                   *
+' *      The compareTo method implements the IComparable interface.   *
+' *                                                                   *
+' * compile: this method compiles the source code without interpreting*
+' *      the source; if the source has not been scanned this method   *
+' *      scans the source in full.                                    *
+' *                                                                   *
+' * Compiled: this read-only property returns True if the current     *
+' *      source code has been compiled, False otherwise               *
+' *                                                                   *
+' * ConstantFolding: this read-write property returns and may be set  *
+' *      to True or False:                                            *
+' *                                                                   *
+' *      *  When ConstantFolding is True then all subexpressions in   *
+' *         the source code that consist exclusively of constants and *
+' *         operators are evaluated by the compiler and not at run    *
+' *         time. This can speed up run time.                         * 
+' *                                                                   *
+' *         For example, in a+1+1 when ConstantFolding is True, the   *
+' *         subexpression 1+1 is evaluated by the compiler. This      *
+' *         example is contrived (as in stupid) but many code and     *
+' *         business rule generators may generate such examples.      * 
+' *                                                                   *
+' *      *  When ConstantFolding is False then all subexpressions in  *
+' *         the source code that consist exclusively of constants and *
+' *         operators are compiled normally to code.                  * 
+' *                                                                   *
+' * DegenerateOpRemoval: this read-write property returns and may be  *
+' *      set to True or False:                                        *
+' *                                                                   *
+' *      *  When DegenerateOpRemoval is True then all operations      *
+' *         known to have no effect at compile time (including        *
+' *         addition of the constant zero and multiplication by the   *
+' *         constant 1) are removed.                                  * 
+' *                                                                   *
+' *         For example, in a+0 when DegenerateOpRemoval is True, the *
+' *         bogus addition is eliminated, and the only code generated *
+' *         pushes the value of a on the stack. This example is       *
+' *         contrived (as in stupid) but many code and business rule  *
+' *         generators may generate such examples.                    * 
+' *                                                                   *
+' *         By calling these operations "degenerate" I do not mean    *
+' *         anything naughty but instead use a mathematical term of   *
+' *         art.                                                      *
+' *                                                                   *
+' *      *  When DegenerateOpRemoval is False then all degenerate     *
+' *         operations generate code for run-time evaluation.         * 
+' *                                                                   *
+' * dispose: this method disposes of the object, and it cleans up     *
+' *      reference objects in the heap.  For best results use this    *
+' *      method when you are finished using the object in code. This  *
+' *      method will mark the object as unusable.                     *
+' *                                                                   *
+' * EasterEgg: this Shared and read-only property returns a string    *
+' *      containing all the About information and a dedicatory        *
+' *      Easter Egg in the form of text only. There is no nonsense    *
+' *      emanating from this Easter Egg in the form of images, sounds *
+' *      or computer viruses, just plain Ascii text: honi soit qui    *
+' *      mal y pense.                                                 *
+' *                                                                   *
+' * eval(s): this method evaluates the string s as a single expression*
+' *      in Quick Basic notation, or as a series of statements (sepa- *
+' *      rated by colons). For example, s may be a series of Let      *
+' *      assignment statements which set variable values, followed by *
+' *      an expression.                                               *
+' *                                                                   *
+' *      The value of the expression is returned, as a qbVariable     *
+' *      object.                                                      *
+' *                                                                   *
+' *      The eval method is "lightweight": see also evaluate. The eval*
+' *      method creates a New quickBasicEngine having all default     *
+' *      values and default properties, and the evaluated string is   *
+' *      executed using default values and default properties.        *
+' *                                                                   *
+' * evaluate(s): this method evaluates the string s as a single       *
+' *      expression in Quick Basic notation, or as a series of        *
+' *      statements (separated by colons). For example, s may be a    *
+' *      series of Let assignment statements which set variable       *
+' *      values, followed by an expression.                           *
+' *                                                                   *
+' *      The value of the expression is returned, as a qbVariable     *
+' *      object.                                                      *
+' *                                                                   *
+' *      The eval method is "lightweight": see also eval. The evaluate*
+' *      method is executed inside the existing quickBasicEngine, and *
+' *      using the current setting of all values and properties.      *
+' *                                                                   *
+' * evaluation: this method returns the result of the most recent     *
+' *      eval or evaluate method. It returns a null string when no    *
+' *      such result exists.                                          *
+' *                                                                   *
+' * inspect(r): this method inspects the object. It checks for errors *
+' *      that result from my stupid blunders in the creating the      *
+' *      original source code of this class, your ham-fisted changes  *
+' *      to the source code of this class, or "object abuse", the use *
+' *      of this object after an error has occured. Inspect does not  *
+' *      look for simple user errors: these are prevented elsewhere.  *
+' *                                                                   *
+' *      r should be a string, passed by reference; it is assigned an *
+' *      inspection report.                                           *
+' *                                                                   *
+' *      The following inspection rules are used.                     *
+' *                                                                   *
+' *           *  The object instance must be usable                   *
+' *                                                                   *
+' *           *  The scanner object must pass its own inspection      *
+' *                                                                   *
+' *           *  The collection of qbPolish instructions must contain *
+' *              qbPolish objects exclusively. If the collection      *
+' *              contains fewer than 101 objects then each object must*
+' *              pass the qbPolish.inspect inspection; if more than   *
+' *              100 objects exist then a random selection of objects *
+' *              is inspected.                                        * 
+' *                                                                   *
+' *           *  The collection of qbVariable variables must conform  *
+' *              to the structure described in the preceding section. * 
+' *                                                                   *
+' *      If the inspection is failed the object becomes unusable.     *
+' *                                                                   *
+' *      An internal inspection is carried out in the constructor and *
+' *      inside the dispose method.                                   *
+' *                                                                   *
+' * loopEvent(a,e,n,c,L): this event is raised for a number of Do and *
+' *      For loops inside the quickBasicEngine and it shows progress. *
+' *                                                                   *
+' *      The loopEvent exposes the following parameters:              *
+' *                                                                   *
+' *      *  a: a By Value string, which contains a description of the *
+' *         activity in the Do or For loop.                           *
+' *                                                                   *
+' *      *  e: a By Value string, which contains a description of the *
+' *         entity being processed in the Do or For loop.             *
+' *                                                                   *
+' *      *  n: a By Value integer, which contains the current index,  *
+' *         from 1, of the entity being processed in the Do or For.   *
+' *                                                                   *
+' *      *  c: a By Value integer, which contains the total number of *
+' *         entities being processed in the loop.                     *
+' *                                                                   *
+' *      *  L: a By Value integer, which contains the nesting level of*
+' *         the Do or For within other loops.                         *
+' *                                                                   *
+' * mkUnusable: this method makes the object not usable.              *
+' *                                                                   *
+' * Name: this read-write property returns and can change the name of *
+' *      the object instance. Name defaults to quickBasicEnginennnn   *
+' *      date time, where nnnn is an object sequence number.          *
+' *                                                                   *
+' * object2XML: this method converts the state of the object to an    *
+' *      eXtendedMarkupLanguage string; note that the returned tag    *
+' *      will include all source code and all parsed tokens and as    *
+' *      such may be unmanageably large for large source code files.  *
+' *                                                                   *
+' *      These optional parameters are exposed:                       *
+' *                                                                   *
+' *           *  booAboutComment:=False will suppress a boxed XML     *
+' *              comment at the start of the XML containing the value *
+' *              of the About property of this object.                *
+' *                                                                   *
+' *           *  booStateComment:=False will suppress comments that   *
+' *              describe each state value returned.                  *
+' *                                                                   *
+' * object2XMLShared: this method returns the class name and the About*
+' *      information in eXtended Markup Language format and it may be *
+' *      used to get documentation from an uncreated object instance. *
+' *                                                                   *
+' * interpret: this method interprets the compiled code (it will scan,*
+' *      compile and assemble the source code as needed.) On a fully  *
+' *      successful interpretation that clears the stack this method  *
+' *      will return True: on any failure including the failure to    *
+' *      clear the stack, this method returns False.                  *
+' *                                                                   *
+' *      Note that the interpret method does Quick Basic input and    *
+' *      output by means of events: see the interpretInputEvent and   *
+' *      the interpretPrintEvent for details.                         *
+' *                                                                   *
+' * interpretInputEvent(s,b): this event is raised when the interpret-*
+' *      er needs a line of data from the virtual quickBasic console  *
+' *      maintained by the GUI. It will set the By Reference string   *
+' *      parameter s to a string.                                     * 
+' *                                                                   *
+' *      The By Reference integer parameter b should be a Boolean     *
+' *      semaphore, changed from the value 0 to a nonzero value by a  *
+' *      thread-atomic action such as Interlocked.Increment. It will  *
+' *      be zero on entry to the event handler and it should be set   *
+' *      to a nonzero value when the input operation is complete.     *
+' *                                                                   *
+' * interpretPrintEvent(s): this event is raised to print or other-   *
+' *      wise display the output string s.                            *
+' *                                                                   *
+' * parseEvent: this event fires at the completion of each successful *
+' *      parse of any grammar category and it is useful for progress  *
+' *      reporting.                                                   * 
+' *                                                                   *
+' *      The parseEvent handler can get the information about the     *
+' *      parsed node, using the ParseTree property. This property of  *
+' *      the quickBasicEngine returns the qbParseTree under           *
+' *      tconstruction and he Cursor of this object will point at the *
+' *      just-parsed node.  Use properties of qbParseTree such as     *
+' *      GrammarCategory, InstructionCount and so forth, to display   *
+' *      progress.                                                    * 
+' *                                                                   *
+' * ParseTree: this read-only property returns the parse tree whether *
+' *      under construction or complete.                              * 
+' *                                                                   *
+' * Polish(i): this read-only property returns the qbPolish object    *
+' *      corresponding to the instruction indexed by i from 1.        *
+' *                                                                   *
+' * PolishCount: this read-only property returns the current number   *
+' *      of Polish instructions emitted by parsing. It should not be  *
+' *      confused with chaps on horses charging tanks in 1939.        *
+' *      If you did not understand the previous sentence, be advised  *
+' *      it was arcane Jagellonian buffoonery.                        *
+' *                                                                   *
+' * reset: this method resets the Quick Basic engine                  *
+' *                                                                   *
+' * scan: this method scans the source code.                          *
+' *                                                                   *
+' * Scanned: this read-only property returns True if the current      *
+' *      source code has been scanned, otherwise False.               *
+' *                                                                   *
+' * Scanner: this read-only property returns the qbScanner object,    *
+' *      used to scan for parsing. The parse has-a qbScanner.         *
+' *                                                                   *
+' * SourceCode: this read-write property returns and may be set to    *
+' *      the source code for parsing. Assigning source code clears    *
+' *      the array of tokens in the object state, but does not result *
+' *      in an immediate scan of the source code. Instead, scanning   *
+' *      occurs when the QBToken property is called, and the token is *
+' *      not available.                                               *
+' *                                                                   *
+' * Status: this read-only property returns an enumerator of type     *
+' *      ENUstatus and this indicates the status of processing:       *
+' *                                                                   *
+' *      *  ENUstatus.initial: the source code hasn't been scanned    *
+' *      *  ENUstatus.scanned: the source code has been scanned       *
+' *      *  ENUstatus.compiled: the source code has been parsed       *
+' *      *  ENUstatus.assembled: the source code has been assembled   *
+' *                                                                   *
+' * test(r): this Shared method can run on a created, or uncreated    *
+' *      quickBasicEngine. It creates a real engine and then runs a   *
+' *      series of tests on the real created engine.                  *
+' *                                                                   *
+' *      r should be a string, passed by reference. It is set to a    *
+' *      test report.                                                 *
+' *                                                                   *
+' *      If all tests are passed this method returns True. If any test*
+' *      fails, this method returns False. If test was run on a       *
+' *      created object this method will mark that object unusable.   *
+' *                                                                   *
+' * toString: this override method returns the Name property of the   *
+' *      quickBasicEngine.                                            *
+' *                                                                   *
+' * Usable: this read-only property returns True if the object is     *
+' *      usable, False otherwise.                                     *
+' *                                                                   *
+' * userErrorEvent(d,h): this event occurs when there has been a      *
+' *      stupid error we can blame on the user of the quickBasicEngine*
+' *      considered as a Quick Basic system and not as a .Net object, *
+' *      as opposed to ham-fisted blunders in the actual code of this *
+' *      object or idiotic mistakes in the graphical user interface.  *
+' *                                                                   *
+' *      d is the error description and h is additional help.         *
+' *                                                                   *
+' * Variable(i): this read-only property returns the qbVariable object*
+' *      corresponding to the variable indexed by i from 1.           *
+' *                                                                   *
+' * VariableCount: this read-only property returns the current number *
+' *      of variables found in the source code.                       *
+' *                                                                   *
+' *                                                                   *
+' * MULTITHREADING CONSIDERATIONS ----------------------------------- *
+' *                                                                   *
+' * Multiple, distinct instances of this object may run simultaneously*
+' * in multiple threads; the same instance of this object may not run *
+' * simultaneously in more than one thread.                           *
+' *                                                                   *
+' *                                                                   *
+' * COMPILE-TIME SYMBOLS -------------------------------------------- *
+' *                                                                   *
+' * The compile-time symbol QUICKBASICENGINE_EXTENSION should         *
+' * be set to True to generate support for Quick Basic strings that   *
+' * are not limited to 64K bytes.                                     *
+' *                                                                   *
+' * By default, Quick Basic strings as implemented by this compiler   *
+' * are restricted to 64K bytes essentially as a trip down Memory Lane*
+' * and in honor of programmers who developed workarounds for these   *
+' * limits in the past.                                               *
+' *                                                                   *
+' * However, you may compile this source code with the compile time   *
+' * symbol QUICKBASICENGINE_EXTENSION set to False to support strings *
+' * limited only in the same way .Net strings are limited.            *
+' *                                                                   *
+' * The compile-time symbol QUICKBASICENGINE_FMSEXTENSION should      *
+' * be set to True to generate support for language extensions de-    *
+' * veloped on behalf of Foresight Mortgage Systems, and note that    *
+' * no code containing this symbol, no code generated when this symbol*
+' * is True, and no commentary such as this commentary that mentions  *
+' * this symbol should be delivered as part of the quickBasic software*
+' * provided with the Apress book.                                    *
+' *                                                                   *
+' *                                                                   *
+' *********************************************************************

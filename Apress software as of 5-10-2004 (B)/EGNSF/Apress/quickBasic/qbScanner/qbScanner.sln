@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "qbScanner", "qbScanner.vbproj", "{5228C714-293E-4D56-B084-3A4F1488787F}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{5228C714-293E-4D56-B084-3A4F1488787F}.Debug.ActiveCfg = Debug|.NET
+		{5228C714-293E-4D56-B084-3A4F1488787F}.Debug.Build.0 = Debug|.NET
+		{5228C714-293E-4D56-B084-3A4F1488787F}.Release.ActiveCfg = Release|.NET
+		{5228C714-293E-4D56-B084-3A4F1488787F}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,14 @@
+' *                                                                   *
+' * Tag usage: the list box lstCollection is tagged after it is       *
+' * loaded; the Tag is set to the number of abstract (parenthesized)  *
+' * collections because these entries don't correspond to entries in  *
+' * the colCollections table.                                         *
+
+
+        With lstCollectionsAvailable
+            Dim intIndex1 As Integer
+            For intIndex1 = 0 To .Items.Count - 1
+                If Mid(CStr(.Items(intIndex1)), 1, 1) <> "(" Then Exit For
+            Next intIndex1            
+            .Tag = intIndex1
+        End With

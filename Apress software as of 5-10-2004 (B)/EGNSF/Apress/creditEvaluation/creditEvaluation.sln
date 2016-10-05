@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "creditEvaluation", "creditEvaluation.vbproj", "{69BB02F6-1E9C-4015-B515-F7B2D5F443F9}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{69BB02F6-1E9C-4015-B515-F7B2D5F443F9}.Debug.ActiveCfg = Debug|.NET
+		{69BB02F6-1E9C-4015-B515-F7B2D5F443F9}.Debug.Build.0 = Debug|.NET
+		{69BB02F6-1E9C-4015-B515-F7B2D5F443F9}.Release.ActiveCfg = Release|.NET
+		{69BB02F6-1E9C-4015-B515-F7B2D5F443F9}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

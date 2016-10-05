@@ -1,0 +1,1168 @@
+****************************************************************
+*                                                              *
+* R E F E R E N C E   M A N U A L   F O R   T H E              *
+*           B N F A N A L Y Z E R   L A N G U A G E            *
+*                                                              *
+****************************************************************
+
+
+NONTERMINAL SYMBOLS
+
+
+The following are the nonterminal symbols of the language
+
+
+Number of undefined symbols: 0 
+
+       Nonterminal                             Where Used                       Remarks   
+-------------------------- -------------------------------------------------- ------------
+addFactor                  relFactor                                                       
+addFactorRHS               addFactor and addFactorRHS                                      
+addOp                                                                          Start symbol
+andFactor                  orFactor                                                        
+andOp                      orFactor                                                        
+andOp[2]                                                                                   
+asClause                   dimDefinition and formalParameterDef                            
+assignmentStmt             statementBody                                                   
+bound                      boundList                                                       
+boundList                  dimDefinition and boundList                                     
+circle                     unconditionalStatementBody                                      
+cls                        unconditionalStatementBody                                      
+comment                    unconditionalStatementBody                                      
+comment[2]                                                                                 
+comment[3]                                                                                 
+concatFactor               likeFactor and likeFactorRHS                                    
+concatFactorRHS            concatFactor and concatFactorRHS                                
+constantList               data and constantList                                           
+constantValue              constantList                                                    
+ctlStatementBody           statementBody                                                   
+data                       unconditionalStatementBody                                      
+dim                        ctlStatementBody                                                
+dimDefinition              dim                                                             
+doCondition                doHeader and doLoop                                             
+doHeader                   ctlStatementBody                                                
+doLoop                                                                         Start symbol
+else                       ctlStatementBody                                                
+end                        unconditionalStatementBody                                      
+endIf                      ctlStatementBody                                                
+endIf[2]                                                                                   
+exit                       unconditionalStatementBody                                      
+explicitAssignment         singleImmediateCommand and assignmentStmt                       
+expression                 singleImmediateCommand, implicitAssignment,        
+                           subscriptList, circle, doCondition, forHeader,
+                           goSub, goto, if, whileUntilClause, expressionList,
+                           whileHeader, expression and term                               
+expressionList             print, expressionList and functionCall                          
+forHeader                  ctlStatementBody                                                
+forNext                    ctlStatementBody                                                
+formalParameterDef         formalParameterListBody                                         
+formalParameterList        subDefinition and functionDefinition                            
+formalParameterListBody    formalParameterList and formalParameterListBody                 
+functionCall               term                                                            
+functionDefinition         moduleDefinition                                                
+functionName               functionCall                                                    
+goSub                      unconditionalStatementBody                                      
+goto                       unconditionalStatementBody                                      
+goto[2]                                                                                    
+identifier                 statement, dimDefinition, goSub, goto,             
+                           typedIdentifier, subDefinition, functionDefinition
+                           and formalParameterDef                                         
+if                         ctlStatementBody                                                
+if[2]                                                                                      
+immediateCommand                                                               Start symbol
+implicitAssignment         assignmentStmt and explicitAssignment                           
+input                      unconditionalStatementBody                                      
+integer                    bound                                                           
+lValue                     implicitAssignment, forHeader, forNext, lValueList 
+                           and term                                                       
+lValueList                 input and read                                                  
+likeFactor                 notFactor and notFactorRHS                                      
+likeFactorRHS              likeFactor and likeFactorRHS                                    
+logicalNewline             sourceProgram, openCode, subDefinition and         
+                           functionDefinition                                             
+loopOrWend                 ctlStatementBody                                                
+moduleDefinition           sourceProgramBody                                               
+mulFactor                  addFactor and addFactorRHS                                      
+mulFactorRHS               mulFactor and mulFactorRHS                                      
+mulOp                      addFactorRHS                                                    
+notFactor                  andFactor                                                       
+notFactorRHS               notFactor and notFactorRHS                                      
+numTypeChar                unsignedNumber and typeSuffix                                   
+number                     constantValue                                                   
+openCode                   sourceProgramBody, subDefinition and               
+                           functionDefinition                                             
+optionStmt                 sourceProgram                                                   
+orFactor                   expression and orFactor                                         
+orOp                       expression                                                      
+orOp[2]                                                                                    
+powFactor                  mulFactor and mulFactorRHS                                      
+powOp                      mulFactorRHS                                                    
+print                      unconditionalStatementBody                                      
+randomize                  unconditionalStatementBody                                      
+read                       unconditionalStatementBody                                      
+relFactor                  concatFactor, concatFactorRHS and relFactorRHS                  
+relFactorRHS               relFactor and relFactorRHS                                      
+relOp                      concatFactorRHS and relFactorRHS                                
+return                     unconditionalStatementBody                                      
+screen                     unconditionalStatementBody                                      
+sign                       number and integer                                              
+singleImmediateCommand     immediateCommand                                                
+sourceProgram              openCode                                                        
+sourceProgramBody          sourceProgram                                                   
+sourceProgram[2]                                                                           
+sourceProgram[3]                                                                           
+statement                  openCode                                                        
+statementBody              statement                                                       
+stop                       unconditionalStatementBody                                      
+string                     constantValue and term                                          
+subDefinition              moduleDefinition                                                
+subscriptList              lValue and subscriptList                                        
+term                       powFactor                                                       
+trace                      unconditionalStatementBody                                      
+trace[2]                                                                                   
+trace[3]                                                                                   
+trace[4]                                                                                   
+trace[5]                                                                                   
+trace[6]                                                                                   
+typeName                   asClause                                                        
+typeSuffix                 typedIdentifier                                                 
+typedIdentifier            lValue                                                          
+unconditionalStatementBody statementBody and if                                            
+unsignedNumber             number and term                                                 
+unsignedNumber[2]                                                                          
+wend                                                                           Start symbol
+whileHeader                ctlStatementBody                                                
+whileUntilClause           loopOrWend                                                      
+
+
+
+TERMINAL SYMBOLS
+
+
+The following are the terminal elements of the language
+
+        Terminal                             Where Used                    Remarks
+------------------------- ------------------------------------------------ -------
+"&"                       likeFactorRHS                                            
+"("                       lValue and functionCall                                  
+"()"                      formalParameterDef                                       
+")"                       lValue and functionCall                                  
+"*"                       mulOp                                                    
+"**"                      powOp                                                    
+"+"                       sign, powFactor and addOp                                
+","                       formalParameterListBody                                  
+"-"                       sign, powFactor and addOp                                
+"/"                       mulOp                                                    
+"0"                       optionStmt                                               
+"1"                       optionStmt                                               
+":"                       immediateCommand                                         
+";"                       print                                                    
+"<"                       relOp                                                    
+"<="                      relOp                                                    
+"<>"                      relOp                                                    
+"="                       implicitAssignment, forHeader and relOp                  
+">"                       relOp                                                    
+">="                      relOp                                                    
+"Base"                    optionStmt                                               
+"CLS"                     cls                                                      
+"End"                     subDefinition and functionDefinition                     
+"Function"                functionDefinition                                       
+"Inst"                    trace                                                    
+"Line"                    trace                                                    
+"Memory"                  trace                                                    
+"Mod"                     mulOp                                                    
+"NoBox"                   trace                                                    
+"Object"                  trace                                                    
+"Source"                  trace                                                    
+"Stack"                   trace                                                    
+"Sub"                     subDefinition                                            
+"Trace Headsup"           trace                                                    
+"Trace HeadsupText"       trace                                                    
+"Trace Off"               trace                                                    
+"Trace Push"              trace                                                    
+"Trace Text"              trace                                                    
+"\"                       mulOp                                                    
+"^"                       powOp                                                    
+AMPERSAND                 numTypeChar                                              
+Abs                       functionName                                             
+And                       andOp                                                    
+AndAlso                   andOp                                                    
+AnythingExceptDoubleQuote string                                                   
+Apostrophe                comment                                                  
+As                        asClause                                                 
+Asc                       functionName                                             
+Boolean                   typeName                                                 
+ByRef                     formalParameterDef                                       
+ByVal                     formalParameterDef                                       
+Byte                      typeName                                                 
+Ceil                      functionName                                             
+Chr                       functionName                                             
+Circle                    circle                                                   
+Colon                     logicalNewline and statement                             
+Comma                     subscriptList, circle, constantList, boundList,  
+                          lValueList and expressionList                             
+Cos                       functionName                                             
+CurrencySymbol            typeSuffix                                               
+Data                      data                                                     
+Dim                       dim                                                      
+Do                        doHeader and exit                                        
+Double                    typeName                                                 
+DoubleQuote               string                                                   
+EXCLAMATION               numTypeChar                                              
+Else                      else                                                     
+EmptyLine                 comment                                                  
+End                       end and endIf                                            
+EndIf                     endIf                                                    
+Eval                      functionName                                             
+Evaluate                  functionName                                             
+Exit                      exit                                                     
+Explicit                  optionStmt                                               
+Extension                 optionStmt                                               
+False                     term                                                     
+Floor                     functionName                                             
+For                       exit and forHeader                                       
+Function                  functionDefinition                                       
+GoSub                     goSub                                                    
+GoTo                      goto                                                     
+If                        endIf and if                                             
+Iif                       functionName                                             
+Input                     input                                                    
+Int                       functionName                                             
+Integer                   typeName                                                 
+Isnumeric                 functionName                                             
+Lbound                    functionName                                             
+Lcase                     functionName                                             
+Left                      functionName                                             
+Len                       functionName                                             
+Let                       explicitAssignment                                       
+Letter                    identifier                                               
+LettersNumbersUnderscores identifier                                               
+Like                      notFactorRHS                                             
+Log                       functionName                                             
+Long                      typeName                                                 
+Loop                      doLoop and loopOrWend                                    
+Max                       functionName                                             
+Mid                       functionName                                             
+Min                       functionName                                             
+Newline                   logicalNewline                                           
+Next                      forNext                                                  
+NoNewLine                 comment                                                  
+Not                       andFactor                                                
+Option                    optionStmt                                               
+Or                        orOp                                                     
+OrElse                    orOp                                                     
+PERCENT                   numTypeChar                                              
+POUNDSIGN                 numTypeChar                                              
+Pop                       trace                                                    
+Print                     print                                                    
+Randomize                 randomize                                                
+Read                      read                                                     
+Rem                       comment                                                  
+Replace                   functionName                                             
+Return                    return                                                   
+Right                     functionName                                             
+Rnd                       functionName                                             
+Run                       functionName                                             
+Screen                    screen                                                   
+Sgn                       functionName                                             
+Sin                       functionName                                             
+Single                    typeName                                                 
+Step                      forHeader                                                
+Stop                      stop                                                     
+String                    typeName and functionName                                
+Sub                       subDefinition                                            
+Tab                       functionName                                             
+Then                      if                                                       
+To                        bound and forHeader                                      
+Trace                     trace                                                    
+Trim                      functionName                                             
+True                      term                                                     
+UNTIL                     whileUntilClause                                         
+Ubound                    functionName                                             
+Ucase                     functionName                                             
+UnsignedInteger           statement, unsignedNumber, integer, goSub, goto, 
+                          screen and trace                                          
+UnsignedRealNumber        unsignedNumber                                           
+Until                     doCondition                                              
+Utility                   functionName                                             
+Variant                   typeName                                                 
+WHILE                     whileUntilClause                                         
+Wend                      loopOrWend and wend                                      
+While                     doCondition, exit and whileHeader                        
+
+
+
+LANGUAGE SYNTAX
+
+
+The following are the rules of the language
+
+1.  An Immediate Command  can consist of the following: 
+1.1.   This sequence: 
+1.1.1.  A Single Immediate Command 
+1.1.2.   This (repeated zero, one or more times): 
+1.1.2.1.   This sequence: 
+1.1.2.1.1.  The string ":"
+1.1.2.1.2.  A Single Immediate Command 
+An Immediate Command is a start symbol                                  
+2.  A Single Immediate Command  can consist of the following: 
+2.1.   This set of alternatives: 
+2.1.1.  An Expression 
+2.1.2.  An Explicit Assignment 
+A Single Immediate Command can appear in an Immediate Command           
+3.  An Expression  can consist of the following: 
+3.1.   This sequence: 
+3.1.1.  An Or Factor 
+3.1.2.   This optional sequence: 
+3.1.2.1.   This sequence: 
+3.1.2.1.1.  An Or Op 
+3.1.2.1.2.  An Expression 
+An Expression can appear in a Single Immediate Command , an Implicit
+Assignment , a Subscript List , a Circle , a Do Condition , a For Header
+, a Go Sub , a Goto , an If , a While Until Clause , an Expression List
+, a While Header , an Expression and a Term                             
+4.  An Explicit Assignment  can consist of the following: 
+4.1.   This sequence: 
+4.1.1.  A Let
+4.1.2.  An Implicit Assignment 
+An Explicit Assignment can appear in a Single Immediate Command and an
+Assignment Stmt                                                         
+5.  A Source Program  can consist of the following: 
+5.1.  An Option Stmt 
+A Source Program can appear in an Open Code                             
+6.  An Option Stmt  can consist of the following: 
+6.1.   This sequence: 
+6.1.1.  An Option
+6.1.2.   This set of alternatives: 
+6.1.2.1.   This set of alternatives: 
+6.1.2.1.1.   This sequence: 
+6.1.2.1.1.1.  The string "Base"
+6.1.2.1.1.2.   This set of alternatives: 
+6.1.2.1.1.2.1.  The string "0"
+6.1.2.1.1.2.2.  The string "1"
+6.1.2.1.2.  An Explicit
+6.1.2.2.  An Extension
+An Option Stmt can appear in a Source Program                           
+7.  A Source Program Body  can consist of the following: 
+7.1.   This (repeated one or more times): 
+7.1.1.   This set of alternatives: 
+7.1.1.1.  An Open Code 
+7.1.1.2.  A Module Definition 
+A Source Program Body can appear in a Source Program                    
+8.  A Source Program  can also consist of the following: 
+8.1.  A Source Program Body 
+9.  A Logical Newline  can consist of the following: 
+9.1.   This set of alternatives: 
+9.1.1.  A Newline
+9.1.2.  A Colon
+A Logical Newline can appear in a Source Program , an Open Code , a Sub
+Definition and a Function Definition                                    
+10.  A Source Program  can also consist of the following: 
+10.1.   This sequence: 
+10.1.1.  An Option Stmt 
+10.1.2.   This sequence: 
+10.1.2.1.  A Logical Newline 
+10.1.2.2.  A Source Program Body 
+11.  An Open Code  can consist of the following: 
+11.1.   This sequence: 
+11.1.1.  A Statement 
+11.1.2.   This optional sequence: 
+11.1.2.1.   This sequence: 
+11.1.2.1.1.  A Logical Newline 
+11.1.2.1.2.  A Source Program 
+An Open Code can appear in a Source Program Body , a Sub Definition and
+a Function Definition                                                   
+12.  A Module Definition  can consist of the following: 
+12.1.   This set of alternatives: 
+12.1.1.  A Sub Definition 
+12.1.2.  A Function Definition 
+A Module Definition can appear in a Source Program Body                 
+13.  A Statement  can consist of the following: 
+13.1.   This sequence: 
+13.1.1.   This optional sequence: 
+13.1.1.1.   This sequence: 
+13.1.1.1.1.   This set of alternatives: 
+13.1.1.1.1.1.  An UnsignedInteger
+13.1.1.1.1.2.  An Identifier 
+13.1.1.1.2.  A Colon
+13.1.2.  A Statement Body 
+A Statement can appear in an Open Code                                  
+14.  An Identifier  can consist of the following: 
+14.1.   This sequence: 
+14.1.1.  A Letter
+14.1.2.  A LettersNumbersUnderscores
+An Identifier can appear in a Statement , a Dim Definition , a Go Sub ,
+a Goto , a Typed Identifier , a Sub Definition , a Function Definition
+and a Formal Parameter Def                                              
+15.  A Statement Body  can consist of the following: 
+15.1.   This set of alternatives: 
+15.1.1.   This set of alternatives: 
+15.1.1.1.  A Ctl Statement Body 
+15.1.1.2.  An Unconditional Statement Body 
+15.1.2.  An Assignment Stmt 
+A Statement Body can appear in a Statement                              
+16.  A Ctl Statement Body  can consist of the following: 
+16.1.   This set of alternatives: 
+16.1.1.   This set of alternatives: 
+16.1.1.1.   This set of alternatives: 
+16.1.1.1.1.   This set of alternatives: 
+16.1.1.1.1.1.   This set of alternatives: 
+16.1.1.1.1.1.1.   This set of alternatives: 
+16.1.1.1.1.1.1.1.   This set of alternatives: 
+16.1.1.1.1.1.1.1.1.   This set of alternatives: 
+16.1.1.1.1.1.1.1.1.1.  A Dim 
+16.1.1.1.1.1.1.1.1.2.  A Do Header 
+16.1.1.1.1.1.1.1.2.  An Else 
+16.1.1.1.1.1.1.2.  An End If 
+16.1.1.1.1.1.2.  A For Header 
+16.1.1.1.1.2.  A For Next 
+16.1.1.1.2.  An If 
+16.1.1.2.  A While Header 
+16.1.2.  A Loop Or Wend 
+A Ctl Statement Body can appear in a Statement Body                     
+17.  An Unconditional Statement Body  can consist of the following: 
+17.1.   This set of alternatives: 
+17.1.1.   This set of alternatives: 
+17.1.1.1.   This set of alternatives: 
+17.1.1.1.1.   This set of alternatives: 
+17.1.1.1.1.1.   This set of alternatives: 
+17.1.1.1.1.1.1.   This set of alternatives: 
+17.1.1.1.1.1.1.1.   This set of alternatives: 
+17.1.1.1.1.1.1.1.1.   This set of alternatives: 
+17.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+17.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+17.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+17.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+17.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+17.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+17.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+17.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.  A Circle 
+17.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Cls 
+17.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Comment 
+17.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Data 
+17.1.1.1.1.1.1.1.1.1.1.1.1.2.  An End 
+17.1.1.1.1.1.1.1.1.1.1.1.2.  An Exit 
+17.1.1.1.1.1.1.1.1.1.1.2.  A Go Sub 
+17.1.1.1.1.1.1.1.1.1.2.  A Goto 
+17.1.1.1.1.1.1.1.1.2.  An Input 
+17.1.1.1.1.1.1.1.2.  A Print 
+17.1.1.1.1.1.1.2.  A Randomize 
+17.1.1.1.1.1.2.  A Read 
+17.1.1.1.1.2.  A Return 
+17.1.1.1.2.  A Screen 
+17.1.1.2.  A Stop 
+17.1.2.  A Trace 
+An Unconditional Statement Body can appear in a Statement Body and an If
+18.  An Assignment Stmt  can consist of the following: 
+18.1.   This set of alternatives: 
+18.1.1.  An Explicit Assignment 
+18.1.2.  An Implicit Assignment 
+An Assignment Stmt can appear in a Statement Body                       
+19.  A Dim  can consist of the following: 
+19.1.   This sequence: 
+19.1.1.  A Dim
+19.1.2.  A Dim Definition 
+A Dim can appear in a Ctl Statement Body                                
+20.  A Do Header  can consist of the following: 
+20.1.   This sequence: 
+20.1.1.  A Do
+20.1.2.   This optional sequence: 
+20.1.2.1.  A Do Condition 
+A Do Header can appear in a Ctl Statement Body                          
+21.  An Else  can consist of the following: 
+21.1.  An Else
+An Else can appear in a Ctl Statement Body                              
+22.  An End If  can consist of the following: 
+22.1.   This sequence: 
+22.1.1.  An End
+22.1.2.  An If
+An End If can appear in a Ctl Statement Body                            
+23.  A For Header  can consist of the following: 
+23.1.   This sequence: 
+23.1.1.  A For
+23.1.2.   This sequence: 
+23.1.2.1.  A L Value 
+23.1.2.2.   This sequence: 
+23.1.2.2.1.  The string "="
+23.1.2.2.2.   This sequence: 
+23.1.2.2.2.1.  An Expression 
+23.1.2.2.2.2.   This sequence: 
+23.1.2.2.2.2.1.  A To
+23.1.2.2.2.2.2.   This sequence: 
+23.1.2.2.2.2.2.1.  An Expression 
+23.1.2.2.2.2.2.2.   This optional sequence: 
+23.1.2.2.2.2.2.2.1.   This sequence: 
+23.1.2.2.2.2.2.2.1.1.  A Step
+23.1.2.2.2.2.2.2.1.2.  An Expression 
+A For Header can appear in a Ctl Statement Body                         
+24.  A For Next  can consist of the following: 
+24.1.   This sequence: 
+24.1.1.  A Next
+24.1.2.  A L Value 
+A For Next can appear in a Ctl Statement Body                           
+25.  An If  can consist of the following: 
+25.1.   This sequence: 
+25.1.1.  An If
+25.1.2.   This sequence: 
+25.1.2.1.  An Expression 
+25.1.2.2.   This sequence: 
+25.1.2.2.1.   This optional sequence: 
+25.1.2.2.1.1.  A Then
+25.1.2.2.2.  An Unconditional Statement Body 
+An If can appear in a Ctl Statement Body                                
+26.  A While Header  can consist of the following: 
+26.1.   This sequence: 
+26.1.1.  A While
+26.1.2.  An Expression 
+A While Header can appear in a Ctl Statement Body                       
+27.  A Loop Or Wend  can consist of the following: 
+27.1.   This set of alternatives: 
+27.1.1.  A Wend
+27.1.2.   This sequence: 
+27.1.2.1.  A Loop
+27.1.2.2.   This optional sequence: 
+27.1.2.2.1.  A While Until Clause 
+A Loop Or Wend can appear in a Ctl Statement Body                       
+28.  A Circle  can consist of the following: 
+28.1.   This sequence: 
+28.1.1.  A Circle
+28.1.2.   This sequence: 
+28.1.2.1.   This sequence: 
+28.1.2.1.1.  An Expression 
+28.1.2.1.2.   This sequence: 
+28.1.2.1.2.1.  A Comma
+28.1.2.1.2.2.  An Expression 
+28.1.2.2.   This sequence: 
+28.1.2.2.1.  A Comma
+28.1.2.2.2.  An Expression 
+A Circle can appear in an Unconditional Statement Body                  
+29.  A Cls  can consist of the following: 
+29.1.  The string "CLS"
+A Cls can appear in an Unconditional Statement Body                     
+30.  A Comment  can consist of the following: 
+30.1.   This sequence: 
+30.1.1.  A Rem
+30.1.2.  A NoNewLine
+A Comment can appear in an Unconditional Statement Body                 
+31.  A Data  can consist of the following: 
+31.1.   This sequence: 
+31.1.1.  A Data
+31.1.2.  A Constant List 
+A Data can appear in an Unconditional Statement Body                    
+32.  An End  can consist of the following: 
+32.1.  An End
+An End can appear in an Unconditional Statement Body                    
+33.  An Exit  can consist of the following: 
+33.1.   This sequence: 
+33.1.1.  An Exit
+33.1.2.   This optional sequence: 
+33.1.2.1.   This set of alternatives: 
+33.1.2.1.1.   This set of alternatives: 
+33.1.2.1.1.1.  A Do
+33.1.2.1.1.2.  A For
+33.1.2.1.2.  A While
+An Exit can appear in an Unconditional Statement Body                   
+34.  A Go Sub  can consist of the following: 
+34.1.   This sequence: 
+34.1.1.  A GoSub
+34.1.2.   This set of alternatives: 
+34.1.2.1.   This set of alternatives: 
+34.1.2.1.1.  An UnsignedInteger
+34.1.2.1.2.  An Identifier 
+34.1.2.2.  An Expression 
+A Go Sub can appear in an Unconditional Statement Body                  
+35.  A Goto  can consist of the following: 
+35.1.   This sequence: 
+35.1.1.  A GoTo
+35.1.2.   This set of alternatives: 
+35.1.2.1.   This set of alternatives: 
+35.1.2.1.1.  An UnsignedInteger
+35.1.2.1.2.  An Identifier 
+35.1.2.2.  An Expression 
+A Goto can appear in an Unconditional Statement Body                    
+36.  An Input  can consist of the following: 
+36.1.   This sequence: 
+36.1.1.  An Input
+36.1.2.  A L Value List 
+An Input can appear in an Unconditional Statement Body                  
+37.  A Print  can consist of the following: 
+37.1.   This sequence: 
+37.1.1.  A Print
+37.1.2.   This sequence: 
+37.1.2.1.  An Expression List 
+37.1.2.2.   This optional sequence: 
+37.1.2.2.1.  The string ";"
+A Print can appear in an Unconditional Statement Body                   
+38.  A Randomize  can consist of the following: 
+38.1.  A Randomize
+A Randomize can appear in an Unconditional Statement Body               
+39.  A Read  can consist of the following: 
+39.1.   This sequence: 
+39.1.1.  A Read
+39.1.2.  A L Value List 
+A Read can appear in an Unconditional Statement Body                    
+40.  A Return  can consist of the following: 
+40.1.  A Return
+A Return can appear in an Unconditional Statement Body                  
+41.  A Screen  can consist of the following: 
+41.1.   This sequence: 
+41.1.1.  A Screen
+41.1.2.  An UnsignedInteger
+A Screen can appear in an Unconditional Statement Body                  
+42.  A Stop  can consist of the following: 
+42.1.  A Stop
+A Stop can appear in an Unconditional Statement Body                    
+43.  A Trace  can consist of the following: 
+43.1.  The string "Trace Push"
+A Trace can appear in an Unconditional Statement Body                   
+44.  An Implicit Assignment  can consist of the following: 
+44.1.   This sequence: 
+44.1.1.  A L Value 
+44.1.2.   This sequence: 
+44.1.2.1.  The string "="
+44.1.2.2.  An Expression 
+An Implicit Assignment can appear in an Assignment Stmt and an Explicit
+Assignment                                                              
+45.  A L Value  can consist of the following: 
+45.1.   This sequence: 
+45.1.1.  A Typed Identifier 
+45.1.2.   This optional sequence: 
+45.1.2.1.   This sequence: 
+45.1.2.1.1.  The string "("
+45.1.2.1.2.   This sequence: 
+45.1.2.1.2.1.  A Subscript List 
+45.1.2.1.2.2.  The string ")"
+A L Value can appear in an Implicit Assignment , a For Header , a For
+Next , a L Value List and a Term                                        
+46.  A Typed Identifier  can consist of the following: 
+46.1.   This sequence: 
+46.1.1.  An Identifier 
+46.1.2.   This optional sequence: 
+46.1.2.1.  A Type Suffix 
+A Typed Identifier can appear in a L Value                              
+47.  A Subscript List  can consist of the following: 
+47.1.   This sequence: 
+47.1.1.  An Expression 
+47.1.2.   This optional sequence: 
+47.1.2.1.   This sequence: 
+47.1.2.1.1.  A Comma
+47.1.2.1.2.  A Subscript List 
+A Subscript List can appear in a L Value and a Subscript List           
+48.  A Comment  can also consist of the following: 
+48.1.   This sequence: 
+48.1.1.  An Apostrophe
+48.1.2.  A NoNewLine
+49.  A Comment  can also consist of the following: 
+49.1.  An EmptyLine
+50.  A Constant List  can consist of the following: 
+50.1.   This sequence: 
+50.1.1.  A Constant Value 
+50.1.2.   This optional sequence: 
+50.1.2.1.   This sequence: 
+50.1.2.1.1.  A Comma
+50.1.2.1.2.  A Constant List 
+A Constant List can appear in a Data and a Constant List                
+51.  A Constant Value  can consist of the following: 
+51.1.   This set of alternatives: 
+51.1.1.  A Number 
+51.1.2.  A String 
+A Constant Value can appear in a Constant List                          
+52.  A Number  can consist of the following: 
+52.1.   This sequence: 
+52.1.1.   This optional sequence: 
+52.1.1.1.  A Sign 
+52.1.2.  An Unsigned Number 
+A Number can appear in a Constant Value                                 
+53.  A String  can consist of the following: 
+53.1.   This sequence: 
+53.1.1.  A DoubleQuote
+53.1.2.   This sequence: 
+53.1.2.1.  An AnythingExceptDoubleQuote
+53.1.2.2.  A DoubleQuote
+A String can appear in a Constant Value and a Term                      
+54.  A Sign  can consist of the following: 
+54.1.   This set of alternatives: 
+54.1.1.  The string "+"
+54.1.2.  The string "-"
+A Sign can appear in a Number and an Integer                            
+55.  An Unsigned Number  can consist of the following: 
+55.1.   This set of alternatives: 
+55.1.1.  An UnsignedInteger
+55.1.2.  An UnsignedRealNumber
+An Unsigned Number can appear in a Number and a Term                    
+56.  An Integer  can consist of the following: 
+56.1.   This sequence: 
+56.1.1.   This optional sequence: 
+56.1.1.1.  A Sign 
+56.1.2.  An UnsignedInteger
+An Integer can appear in a Bound                                        
+57.  A Dim Definition  can consist of the following: 
+57.1.   This sequence: 
+57.1.1.  An Identifier 
+57.1.2.   This sequence: 
+57.1.2.1.   This optional sequence: 
+57.1.2.1.1.  A Bound List 
+57.1.2.2.   This optional sequence: 
+57.1.2.2.1.  An As Clause 
+A Dim Definition can appear in a Dim                                    
+58.  A Bound List  can consist of the following: 
+58.1.   This sequence: 
+58.1.1.  A Bound 
+58.1.2.   This optional sequence: 
+58.1.2.1.   This sequence: 
+58.1.2.1.1.  A Comma
+58.1.2.1.2.  A Bound List 
+A Bound List can appear in a Dim Definition and a Bound List            
+59.  An As Clause  can consist of the following: 
+59.1.   This sequence: 
+59.1.1.  An As
+59.1.2.  A Type Name 
+An As Clause can appear in a Dim Definition and a Formal Parameter Def  
+60.  A Type Name  can consist of the following: 
+60.1.   This set of alternatives: 
+60.1.1.   This set of alternatives: 
+60.1.1.1.   This set of alternatives: 
+60.1.1.1.1.   This set of alternatives: 
+60.1.1.1.1.1.   This set of alternatives: 
+60.1.1.1.1.1.1.   This set of alternatives: 
+60.1.1.1.1.1.1.1.   This set of alternatives: 
+60.1.1.1.1.1.1.1.1.  A Boolean
+60.1.1.1.1.1.1.1.2.  A Byte
+60.1.1.1.1.1.1.2.  An Integer
+60.1.1.1.1.1.2.  A Long
+60.1.1.1.1.2.  A Single
+60.1.1.1.2.  A Double
+60.1.1.2.  A String
+60.1.2.  A Variant
+A Type Name can appear in an As Clause                                  
+61.  A Bound  can consist of the following: 
+61.1.   This sequence: 
+61.1.1.  An Integer 
+61.1.2.   This optional sequence: 
+61.1.2.1.   This sequence: 
+61.1.2.1.1.  A To
+61.1.2.1.2.  An Integer 
+A Bound can appear in a Bound List                                      
+62.  A Do Condition  can consist of the following: 
+62.1.   This sequence: 
+62.1.1.   This set of alternatives: 
+62.1.1.1.  A While
+62.1.1.2.  An Until
+62.1.2.  An Expression 
+A Do Condition can appear in a Do Header and a Do Loop                  
+63.  A Do Loop  can consist of the following: 
+63.1.   This sequence: 
+63.1.1.  A Loop
+63.1.2.   This optional sequence: 
+63.1.2.1.  A Do Condition 
+A Do Loop is a start symbol                                             
+64.  An End If  can also consist of the following: 
+64.1.  An EndIf
+65.  A Goto  can also consist of the following: 
+65.1.  An UnsignedInteger
+66.  An If  can also consist of the following: 
+66.1.   This sequence: 
+66.1.1.  An If
+66.1.2.   This sequence: 
+66.1.2.1.  An Expression 
+66.1.2.2.  A Then
+67.  A L Value List  can consist of the following: 
+67.1.   This sequence: 
+67.1.1.  A L Value 
+67.1.2.   This optional sequence: 
+67.1.2.1.   This sequence: 
+67.1.2.1.1.  A Comma
+67.1.2.1.2.  A L Value 
+A L Value List can appear in an Input and a Read                        
+68.  A While Until Clause  can consist of the following: 
+68.1.   This sequence: 
+68.1.1.   This set of alternatives: 
+68.1.1.1.  A WHILE
+68.1.1.2.  An UNTIL
+68.1.2.  An Expression 
+A While Until Clause can appear in a Loop Or Wend                       
+69.  An Expression List  can consist of the following: 
+69.1.   This sequence: 
+69.1.1.  An Expression 
+69.1.2.   This optional sequence: 
+69.1.2.1.   This sequence: 
+69.1.2.1.1.  A Comma
+69.1.2.1.2.  An Expression List 
+An Expression List can appear in a Print , an Expression List and a
+Function Call                                                           
+70.  A Trace  can also consist of the following: 
+70.1.  The string "Trace Off"
+71.  A Trace  can also consist of the following: 
+71.1.   This sequence: 
+71.1.1.  The string "Trace Text"
+71.1.2.   This (repeated zero, one or more times): 
+71.1.2.1.   This set of alternatives: 
+71.1.2.1.1.   This set of alternatives: 
+71.1.2.1.1.1.   This set of alternatives: 
+71.1.2.1.1.1.1.   This set of alternatives: 
+71.1.2.1.1.1.1.1.   This set of alternatives: 
+71.1.2.1.1.1.1.1.1.   This set of alternatives: 
+71.1.2.1.1.1.1.1.1.1.   This set of alternatives: 
+71.1.2.1.1.1.1.1.1.1.1.  The string "Source"
+71.1.2.1.1.1.1.1.1.1.2.  The string "Memory"
+71.1.2.1.1.1.1.1.1.2.  The string "Stack"
+71.1.2.1.1.1.1.1.2.  The string "Inst"
+71.1.2.1.1.1.1.2.  The string "Object"
+71.1.2.1.1.1.2.  The string "Line"
+71.1.2.1.1.2.  An UnsignedInteger
+71.1.2.1.2.  The string "NoBox"
+72.  A Trace  can also consist of the following: 
+72.1.   This sequence: 
+72.1.1.  The string "Trace Headsup"
+72.1.2.   This (repeated zero, one or more times): 
+72.1.2.1.   This set of alternatives: 
+72.1.2.1.1.   This set of alternatives: 
+72.1.2.1.1.1.  The string "Inst"
+72.1.2.1.1.2.  The string "Line"
+72.1.2.1.2.  An UnsignedInteger
+73.  A Trace  can also consist of the following: 
+73.1.   This sequence: 
+73.1.1.  The string "Trace HeadsupText"
+73.1.2.   This (repeated zero, one or more times): 
+73.1.2.1.   This set of alternatives: 
+73.1.2.1.1.   This set of alternatives: 
+73.1.2.1.1.1.   This set of alternatives: 
+73.1.2.1.1.1.1.   This set of alternatives: 
+73.1.2.1.1.1.1.1.   This set of alternatives: 
+73.1.2.1.1.1.1.1.1.   This set of alternatives: 
+73.1.2.1.1.1.1.1.1.1.   This set of alternatives: 
+73.1.2.1.1.1.1.1.1.1.1.  The string "Source"
+73.1.2.1.1.1.1.1.1.1.2.  The string "Memory"
+73.1.2.1.1.1.1.1.1.2.  The string "Stack"
+73.1.2.1.1.1.1.1.2.  The string "Inst"
+73.1.2.1.1.1.1.2.  The string "Object"
+73.1.2.1.1.1.2.  The string "Line"
+73.1.2.1.1.2.  An UnsignedInteger
+73.1.2.1.2.  The string "NoBox"
+74.  A Trace  can also consist of the following: 
+74.1.   This sequence: 
+74.1.1.  A Trace
+74.1.2.  A Pop
+75.  A Wend  can consist of the following: 
+75.1.  A Wend
+A Wend is a start symbol                                                
+76.  An Or Factor  can consist of the following: 
+76.1.   This sequence: 
+76.1.1.  An And Factor 
+76.1.2.   This optional sequence: 
+76.1.2.1.   This sequence: 
+76.1.2.1.1.  An And Op 
+76.1.2.1.2.  An Or Factor 
+An Or Factor can appear in an Expression and an Or Factor               
+77.  An Or Op  can consist of the following: 
+77.1.  An Or
+An Or Op can appear in an Expression                                    
+78.  An Or Op  can also consist of the following: 
+78.1.  An OrElse
+79.  An And Factor  can consist of the following: 
+79.1.   This sequence: 
+79.1.1.   This optional sequence: 
+79.1.1.1.  A Not
+79.1.2.  A Not Factor 
+An And Factor can appear in an Or Factor                                
+80.  An And Op  can consist of the following: 
+80.1.  An And
+An And Op can appear in an Or Factor                                    
+81.  An And Op  can also consist of the following: 
+81.1.  An AndAlso
+82.  A Not Factor  can consist of the following: 
+82.1.   This sequence: 
+82.1.1.  A Like Factor 
+82.1.2.   This optional sequence: 
+82.1.2.1.  A Not Factor R H S
+A Not Factor can appear in an And Factor                                
+83.  A Like Factor  can consist of the following: 
+83.1.   This sequence: 
+83.1.1.  A Concat Factor 
+83.1.2.   This optional sequence: 
+83.1.2.1.  A Like Factor R H S
+A Like Factor can appear in a Not Factor and a Not Factor R H S         
+84.  A Not Factor R H S can consist of the following: 
+84.1.   This sequence: 
+84.1.1.  A Like
+84.1.2.   This sequence: 
+84.1.2.1.  A Like Factor 
+84.1.2.2.   This optional sequence: 
+84.1.2.2.1.  A Not Factor R H S
+A Not Factor R H S can appear in a Not Factor and a Not Factor R H S    
+85.  A Concat Factor  can consist of the following: 
+85.1.   This sequence: 
+85.1.1.  A Rel Factor 
+85.1.2.   This optional sequence: 
+85.1.2.1.  A Concat Factor R H S
+A Concat Factor can appear in a Like Factor and a Like Factor R H S     
+86.  A Like Factor R H S can consist of the following: 
+86.1.   This sequence: 
+86.1.1.  The string "&"
+86.1.2.   This sequence: 
+86.1.2.1.  A Concat Factor 
+86.1.2.2.   This optional sequence: 
+86.1.2.2.1.  A Like Factor R H S
+A Like Factor R H S can appear in a Like Factor and a Like Factor R H S 
+87.  A Rel Factor  can consist of the following: 
+87.1.   This sequence: 
+87.1.1.  An Add Factor 
+87.1.2.   This optional sequence: 
+87.1.2.1.  A Rel Factor R H S
+A Rel Factor can appear in a Concat Factor , a Concat Factor R H S and a
+Rel Factor R H S                                                        
+88.  A Concat Factor R H S can consist of the following: 
+88.1.   This sequence: 
+88.1.1.  A Rel Op 
+88.1.2.   This sequence: 
+88.1.2.1.  A Rel Factor 
+88.1.2.2.   This optional sequence: 
+88.1.2.2.1.  A Concat Factor R H S
+A Concat Factor R H S can appear in a Concat Factor and a Concat Factor
+R H S                                                                   
+89.  A Rel Op  can consist of the following: 
+89.1.   This set of alternatives: 
+89.1.1.   This set of alternatives: 
+89.1.1.1.   This set of alternatives: 
+89.1.1.1.1.   This set of alternatives: 
+89.1.1.1.1.1.   This set of alternatives: 
+89.1.1.1.1.1.1.   This set of alternatives: 
+89.1.1.1.1.1.1.1.  The string "<"
+89.1.1.1.1.1.1.2.  The string ">"
+89.1.1.1.1.1.2.  The string "="
+89.1.1.1.1.2.  The string "<="
+89.1.1.1.2.  The string ">="
+89.1.1.2.  The string "="
+89.1.2.  The string "<>"
+A Rel Op can appear in a Concat Factor R H S and a Rel Factor R H S     
+90.  An Add Factor  can consist of the following: 
+90.1.   This sequence: 
+90.1.1.  A Mul Factor 
+90.1.2.   This optional sequence: 
+90.1.2.1.  An Add Factor R H S
+An Add Factor can appear in a Rel Factor                                
+91.  A Rel Factor R H S can consist of the following: 
+91.1.   This sequence: 
+91.1.1.  A Rel Op 
+91.1.2.   This sequence: 
+91.1.2.1.  A Rel Factor 
+91.1.2.2.   This optional sequence: 
+91.1.2.2.1.  A Rel Factor R H S
+A Rel Factor R H S can appear in a Rel Factor and a Rel Factor R H S    
+92.  A Mul Factor  can consist of the following: 
+92.1.   This sequence: 
+92.1.1.  A Pow Factor 
+92.1.2.   This optional sequence: 
+92.1.2.1.  A Mul Factor R H S
+A Mul Factor can appear in an Add Factor and an Add Factor R H S        
+93.  An Add Factor R H S can consist of the following: 
+93.1.   This sequence: 
+93.1.1.  A Mul Op 
+93.1.2.   This sequence: 
+93.1.2.1.  A Mul Factor 
+93.1.2.2.   This optional sequence: 
+93.1.2.2.1.  An Add Factor R H S
+An Add Factor R H S can appear in an Add Factor and an Add Factor R H S 
+94.  A Mul Op  can consist of the following: 
+94.1.   This set of alternatives: 
+94.1.1.   This set of alternatives: 
+94.1.1.1.   This set of alternatives: 
+94.1.1.1.1.  The string "*"
+94.1.1.1.2.  The string "/"
+94.1.1.2.  The string "\"
+94.1.2.  The string "Mod"
+A Mul Op can appear in an Add Factor R H S                              
+95.  A Pow Factor  can consist of the following: 
+95.1.   This sequence: 
+95.1.1.   This (repeated zero, one or more times): 
+95.1.1.1.   This set of alternatives: 
+95.1.1.1.1.  The string "+"
+95.1.1.1.2.  The string "-"
+95.1.2.  A Term 
+A Pow Factor can appear in a Mul Factor and a Mul Factor R H S          
+96.  A Mul Factor R H S can consist of the following: 
+96.1.   This sequence: 
+96.1.1.  A Pow Op 
+96.1.2.   This sequence: 
+96.1.2.1.  A Pow Factor 
+96.1.2.2.   This optional sequence: 
+96.1.2.2.1.  A Mul Factor R H S
+A Mul Factor R H S can appear in a Mul Factor and a Mul Factor R H S    
+97.  A Pow Op  can consist of the following: 
+97.1.   This set of alternatives: 
+97.1.1.  The string "**"
+97.1.2.  The string "^"
+A Pow Op can appear in a Mul Factor R H S                               
+98.  A Term  can consist of the following: 
+98.1.   This set of alternatives: 
+98.1.1.   This set of alternatives: 
+98.1.1.1.   This set of alternatives: 
+98.1.1.1.1.   This set of alternatives: 
+98.1.1.1.1.1.   This set of alternatives: 
+98.1.1.1.1.1.1.   This set of alternatives: 
+98.1.1.1.1.1.1.1.  An Unsigned Number 
+98.1.1.1.1.1.1.2.  A String 
+98.1.1.1.1.1.2.  A L Value 
+98.1.1.1.1.2.  A True
+98.1.1.1.2.  A False
+98.1.1.2.  A Function Call 
+98.1.2.  An Expression 
+A Term can appear in a Pow Factor                                       
+99.  A Function Call  can consist of the following: 
+99.1.   This sequence: 
+99.1.1.  A Function Name 
+99.1.2.   This sequence: 
+99.1.2.1.  The string "("
+99.1.2.2.   This sequence: 
+99.1.2.2.1.  An Expression List 
+99.1.2.2.2.  The string ")"
+A Function Call can appear in a Term                                    
+100.  A Function Name  can consist of the following: 
+100.1.   This set of alternatives: 
+100.1.1.   This set of alternatives: 
+100.1.1.1.   This set of alternatives: 
+100.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.   This set of alternatives: 
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.  An Abs
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  An Asc
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Ceil
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Chr
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Cos
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  An Eval
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  An Evaluate
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Floor
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  An Int
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  An Iif
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  An Isnumeric
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Lbound
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Lcase
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Left
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Len
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Log
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Max
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Min
+100.1.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Mid
+100.1.1.1.1.1.1.1.1.1.1.1.1.2.  A Replace
+100.1.1.1.1.1.1.1.1.1.1.1.2.  A Right
+100.1.1.1.1.1.1.1.1.1.1.2.  A Rnd
+100.1.1.1.1.1.1.1.1.1.2.  A Run
+100.1.1.1.1.1.1.1.1.2.  A Sin
+100.1.1.1.1.1.1.1.2.  A Sgn
+100.1.1.1.1.1.1.2.  A String
+100.1.1.1.1.1.2.  A Tab
+100.1.1.1.1.2.  A Trim
+100.1.1.1.2.  An Ubound
+100.1.1.2.  An Ucase
+100.1.2.  An Utility
+A Function Name can appear in a Function Call                           
+101.  A Num Type Char  can consist of the following: 
+101.1.   This set of alternatives: 
+101.1.1.   This set of alternatives: 
+101.1.1.1.   This set of alternatives: 
+101.1.1.1.1.  A PERCENT
+101.1.1.1.2.  An AMPERSAND
+101.1.1.2.  An EXCLAMATION
+101.1.2.  A POUNDSIGN
+A Num Type Char can appear in an Unsigned Number and a Type Suffix      
+102.  An Unsigned Number  can also consist of the following: 
+102.1.   This sequence: 
+102.1.1.   This set of alternatives: 
+102.1.1.1.  An UnsignedRealNumber
+102.1.1.2.  An UnsignedInteger
+102.1.2.   This optional sequence: 
+102.1.2.1.  A Num Type Char 
+103.  A Type Suffix  can consist of the following: 
+103.1.   This set of alternatives: 
+103.1.1.  A Num Type Char 
+103.1.2.  A CurrencySymbol
+A Type Suffix can appear in a Typed Identifier                          
+104.  An Add Op  can consist of the following: 
+104.1.   This set of alternatives: 
+104.1.1.  The string "+"
+104.1.2.  The string "-"
+An Add Op is a start symbol                                             
+105.  A Sub Definition  can consist of the following: 
+105.1.   This sequence: 
+105.1.1.  A Sub
+105.1.2.   This sequence: 
+105.1.2.1.  An Identifier 
+105.1.2.2.   This sequence: 
+105.1.2.2.1.   This optional sequence: 
+105.1.2.2.1.1.  A Formal Parameter List 
+105.1.2.2.2.   This sequence: 
+105.1.2.2.2.1.  An Open Code 
+105.1.2.2.2.2.   This sequence: 
+105.1.2.2.2.2.1.  A Logical Newline 
+105.1.2.2.2.2.2.   This sequence: 
+105.1.2.2.2.2.2.1.  The string "End"
+105.1.2.2.2.2.2.2.   This optional sequence: 
+105.1.2.2.2.2.2.2.1.  The string "Sub"
+A Sub Definition can appear in a Module Definition                      
+106.  A Function Definition  can consist of the following: 
+106.1.   This sequence: 
+106.1.1.  A Function
+106.1.2.   This sequence: 
+106.1.2.1.  An Identifier 
+106.1.2.2.   This sequence: 
+106.1.2.2.1.   This optional sequence: 
+106.1.2.2.1.1.  A Formal Parameter List 
+106.1.2.2.2.   This sequence: 
+106.1.2.2.2.1.  An Open Code 
+106.1.2.2.2.2.   This sequence: 
+106.1.2.2.2.2.1.  A Logical Newline 
+106.1.2.2.2.2.2.   This sequence: 
+106.1.2.2.2.2.2.1.  The string "End"
+106.1.2.2.2.2.2.2.   This optional sequence: 
+106.1.2.2.2.2.2.2.1.  The string "Function"
+A Function Definition can appear in a Module Definition                 
+107.  A Formal Parameter List  can consist of the following: 
+107.1.  A Formal Parameter List Body 
+A Formal Parameter List can appear in a Sub Definition and a Function
+Definition                                                              
+108.  A Formal Parameter List Body  can consist of the following: 
+108.1.   This sequence: 
+108.1.1.  A Formal Parameter Def 
+108.1.2.   This optional sequence: 
+108.1.2.1.   This sequence: 
+108.1.2.1.1.  The string ","
+108.1.2.1.2.  A Formal Parameter List Body 
+A Formal Parameter List Body can appear in a Formal Parameter List and a
+Formal Parameter List Body                                              
+109.  A Formal Parameter Def  can consist of the following: 
+109.1.   This sequence: 
+109.1.1.   This optional sequence: 
+109.1.1.1.   This set of alternatives: 
+109.1.1.1.1.  A ByVal
+109.1.1.1.2.  A ByRef
+109.1.2.   This sequence: 
+109.1.2.1.  An Identifier 
+109.1.2.2.   This sequence: 
+109.1.2.2.1.   This optional sequence: 
+109.1.2.2.1.1.  The string "()"
+109.1.2.2.2.  An As Clause 
+A Formal Parameter Def can appear in a Formal Parameter List Body       

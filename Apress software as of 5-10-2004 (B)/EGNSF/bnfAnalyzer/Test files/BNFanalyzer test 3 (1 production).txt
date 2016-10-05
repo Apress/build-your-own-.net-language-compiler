@@ -1,0 +1,2 @@
+' BNFanalyzer test 3 (1 production)
+nonTerminal1 := TERMINAL1

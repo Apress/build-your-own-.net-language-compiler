@@ -1,0 +1,126 @@
+    ' ----------------------------------------------------------------------
+    '	
+    ' Convert Long number to base N
+    '
+    '
+    ' This method converts a Long integer in lngBase10 to its representation 
+    ' that uses the N distinct characters in strDigits.  The first character 
+    ' in strDigits represents zero: the second represents one, and so on.
+    '
+    ' This method has the following overloaded syntax:
+    '
+    '
+    '      long2BaseN(number, N): converts number to its string base N 
+    '           representation using the specified base: N must be in the
+    '           range 2..36, and, it is assumed that the symbols in use will be
+    '           "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    '
+    '      long2BaseN(number, N, wordsize): N must be in the range 2..36, and, 
+    '           it is assumed that the symbols in use will be
+    '           "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".  wordsize is the maximum length
+    '           of the base N number.  If the result is too long to fit in 
+    '           wordsize then a null string is returned.  
+    '
+    '      long2BaseN(number, digits): converts number to its string base N 
+    '           representation using the specified set of digits to define
+    '           the base.
+    '
+    '           The first digit represents 0, the second digit, 1, and so on,
+    '           and the length of digits is the base N.
+    '
+    '      long2BaseN(number, digits, wordsize): wordsize is the maximum length
+    '           of the base N number.  If the result is too long to fit in 
+    '           wordsize then a null string is returned.
+    '
+    '
+    ' C H A N G E   R E C O R D ----------------------------------------
+    '   DATE     PROGRAMMER     DESCRIPTION
+    ' --------   ----------     ----------------------------------------
+    ' 01 07 03   Nilges         Added overloads to allow the base to be
+    '                           specified as a number, with conventional
+    '                           digits
+    '
+    '
+    Public Overloads Shared Function long2BaseN(ByVal lngBase10 As Long, _
+                                                ByVal intBase As Integer) As String
+        Return long2BaseN(lngBase10, intBase, 0)
+    End Function
+    Public Overloads Shared Function long2BaseN(ByVal lngBase10 As Long, _
+                                                ByVal intBase As Integer, _
+                                                ByVal bytWordSize As Byte) As String
+        Return (long2BaseN(lngBase10, _
+                          baseN2Long_base2Digits_(intBase), _
+                          bytWordSize))
+    End Function
+    Public Overloads Shared Function long2BaseN(ByVal lngBase10 As Long, _
+                                                ByVal strDigits As String) As String
+        Return long2BaseN(lngBase10, strDigits, 0)
+    End Function
+    Public Overloads Shared Function long2BaseN(ByVal lngBase10 As Long, _
+                                                ByVal strDigits As String, _
+                                                ByVal bytWordSize As Byte) As String
+        Dim intBaseValue As Integer
+        Dim lngBase10Work As Long
+        Dim objStringBuilder As New System.Text.StringBuilder
+        Dim strBaseN As String
+        If Len(strDigits) < 2 Then
+            errorHandler("length of strDigits is less than 2")
+            Return ("")
+        End If
+        If lngBase10 = 0 Then
+            objStringBuilder.Append(Mid(strDigits, 1, 1))
+        Else
+            intBaseValue = Len(strDigits)
+            If bytWordSize <> 0 Then
+                If intBaseValue <> 2 Then
+                    errorHandler("Word size is specified but base is not 2")
+                    Return (Mid(strDigits, 1, 1))
+                End If
+                If lngBase10 > 2 ^ (bytWordSize - 1) - 1 _
+                   OrElse _
+                   lngBase10 < -2 ^ (bytWordSize - 1) Then
+                    errorHandler("Long value " & lngBase10 & " " & _
+                                 "cannot be represented with word size " & _
+                                 bytWordSize)
+                    Return (Mid(strDigits, 1, 1))
+                End If
+            End If
+            If lngBase10 < 0 Then
+                If intBaseValue <> 2 OrElse bytWordSize = 0 Then
+                    errorHandler("Input number " & lngBase10 & " is negative, " & _
+                                 "but base is not 2 or word size is not specified")
+                    Return ("")
+                End If
+                lngBase10Work = Math.Abs(lngBase10) - 1
+            Else
+                lngBase10Work = lngBase10
+            End If
+            Do While lngBase10Work <> 0
+                append(objStringBuilder, _
+                       "", _
+                       Mid(strDigits, _
+                           CInt(lngBase10Work Mod intBaseValue + 1), _
+                           1), _
+                       booToStart:=True)
+                lngBase10Work = lngBase10Work \ intBaseValue
+            Loop
+        End If
+        strBaseN = objStringBuilder.ToString
+        If bytWordSize <> 0 Then
+            If objStringBuilder.Length <= bytWordSize Then
+                strBaseN = align(strBaseN, _
+                                 bytWordSize, _
+                                 ENUalign.alignRight, _
+                                 Mid(strDigits, 1, 1))
+            Else
+                errorHandler("Overflow: input number " & lngBase10 & " " & _
+                             "cannot be represented in " & _
+                             bytWordSize & " digits")
+            End If
+        End If
+        If lngBase10 < 0 Then strBaseN = translate(strBaseN, _
+                                                   strDigits, _
+                                                   Mid(strDigits, 2, 1) & _
+                                                   Mid(strDigits, 1, 1))
+        Return (strBaseN)
+    End Function

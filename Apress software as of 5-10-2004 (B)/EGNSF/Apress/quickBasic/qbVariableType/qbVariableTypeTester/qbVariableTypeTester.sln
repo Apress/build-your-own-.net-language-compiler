@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "qbVariableTypeTester", "qbVariableTypeTester.vbproj", "{AFF59D0C-5E04-49EF-B7DB-3A36476210B7}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{AFF59D0C-5E04-49EF-B7DB-3A36476210B7}.Debug.ActiveCfg = Debug|.NET
+		{AFF59D0C-5E04-49EF-B7DB-3A36476210B7}.Debug.Build.0 = Debug|.NET
+		{AFF59D0C-5E04-49EF-B7DB-3A36476210B7}.Release.ActiveCfg = Release|.NET
+		{AFF59D0C-5E04-49EF-B7DB-3A36476210B7}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(SolutionItems) = postSolution
+		solutionReadme.txt = solutionReadme.txt
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,5 @@
+' BNFanalyzer test 4 (small grammar)
+startSymbol := nonTerminal1 TERMINAL1 ' Production 1
+startSymbol := 
+     TERMINAL1              ' Production 2
+nonTerminal1 := TERMINAL2             ' Production 3

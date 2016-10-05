@@ -1,0 +1,6 @@
+functionCall := functionName ( expressionList )
+functionName := Abs | Asc | Ceil | Chr | Cos | Eval | Floor | Int | 
+                Iif | Isnumeric | Lbound | Lcase | Left | Len | Log | 
+                Max | Min | Mid | | Replace | Right | Rnd | Sin | 
+                Sgn | | String | Tab | Trim |
+                Ubound | Ucase | Utility

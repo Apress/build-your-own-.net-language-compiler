@@ -1,0 +1,55 @@
+
+' *********************************************************************
+' *                                                                   *
+' * testForm     Utilities test form                                  *
+' *                                                                   *
+' *                                                                   *
+' * This object exposes the following properties and methods.         *
+' *                                                                   *
+' *                                                                   *
+' *      addTestControl: this method adds one testControl to the      *
+' *           collection of test controls displayed for the utility:  *
+' *           often, only one such control is displayed, but more than*
+' *           one control will be displayed when there are SeeAlso    *
+' *           utilities that perform the inverse of the utility       *
+' *           functions.                                              *
+' *                                                                   *
+' *      clearTestControls: this method clears the set of test        *
+' *           controls that are associated with the utility.          *
+' *                                                                   *
+' *      Abstract: this write-only property can be set to the utility *
+' *           abstract: it defaults to "No information is available." *
+' *                                                                   *
+' *      SeeAlso: this write-only property can be set to a list of    *
+' *           one or more related utilities: it defaults to a null    *
+' *           string.  Usually the SeeAlso utilities are inverse      *
+' *           functions, where the base utility has the name a2b, and *
+' *           the inverse utility has the name b2a.                   *
+' *                                                                   *
+' *      UsedBy: this write-only property can be set to a list of     *
+' *           one or more utilities that call the displayed utility:  *
+' *           it defaults to a null string.                           *
+' *                                                                   *
+' *      Uses: this write-only property can be set to a list of       *
+' *           one or more utilities that the displayed utility calls: *
+' *           it defaults to a null string.                           *
+' *                                                                   *
+' *                                                                   *
+' *********************************************************************
+
+Private Class testForm
+    Inherits System.Windows.Forms.Form
+    
+    ' ***** Object state *****
+    Private COLtestControls As Collection   ' Of testing controls
+    
+    ' -----------------------------------------------------------------
+    ' Add test control
+    '
+    '
+    Friend Function addTestControl(ByVal objTestControl As testControl) _
+            As Boolean
+
+    End Function            
+    
+End Class

@@ -1,0 +1,43 @@
+Type=Exe
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\WINDOWS\System32\stdole2.tlb#OLE Automation
+Form=bnfAnalyzer.frm
+Form=refManOptions.frm
+Class=clsUtilities; utilities.cls
+Form=rrDiagram.frm
+Module=modBNFanalyzer; bnfAnalyzer.bas
+Form=showFile.frm
+Form=errorHandler.frm
+IconForm="frmBNFanalyzer"
+Startup="frmBNFanalyzer"
+HelpFile=""
+Title="bnfAnalyzer"
+ExeName32="bnfAnalyzer.exe"
+Command32=""
+Name="prjBNFanalyzer"
+HelpContextID="0"
+CompatibleMode="0"
+MajorVer=1
+MinorVer=0
+RevisionVer=0
+AutoIncrementVer=0
+ServerSupportFiles=0
+VersionCompanyName="EGN Software Factory"
+CondComp="SIXTY_DAY_EVALUATION = 0 : BNFANALYZER_RRDIAGRAM = 0 : BNFANALYZER_FILEVIEW = -1"
+CompilationType=0
+OptimizationType=0
+FavorPentiumPro(tm)=-1
+CodeViewDebugInfo=0
+NoAliasing=-1
+BoundsCheck=-1
+OverflowCheck=-1
+FlPointCheck=-1
+FDIVCheck=-1
+UnroundedFP=-1
+StartMode=0
+Unattended=0
+Retained=0
+ThreadPerObject=0
+MaxNumberOfThreads=1
+
+[MS Transaction Server]
+AutoRefresh=1

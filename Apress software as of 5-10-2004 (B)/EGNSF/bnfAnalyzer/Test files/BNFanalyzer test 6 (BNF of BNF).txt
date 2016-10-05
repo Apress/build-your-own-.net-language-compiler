@@ -1,0 +1,17 @@
+bnfGrammar := production +
+production := [ nonTerminal ":=" productionRHS ]   
+              (NEWLINE|EOF)           
+production := NEWLINE ' Allows for empty lines               
+nonTerminal := IDENTIFIER                                    
+productionRHS := sequenceFactor [ sequenceFactor ]           
+sequenceFactor := mockRegularExpression                      
+                  [ alternationFactorRHS ]                   
+mockRegularExpression := mreFactor [ mrePostfix ]            
+mreFactor := nonTerminal |                                   
+             UPPERCASESTRING |                                      
+             STRING |                                        
+             "(" productionRHS ")" |                         
+             "[" productionRHS "]"                           
+mrePostfix := "*" | "-"                                      
+alternationFactorRHS := "|" mockRegularExpression            
+                        [ alternationFactorRHS ]             

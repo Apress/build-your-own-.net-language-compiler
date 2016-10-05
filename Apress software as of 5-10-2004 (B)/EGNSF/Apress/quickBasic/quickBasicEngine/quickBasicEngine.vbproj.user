@@ -1,0 +1,48 @@
+<VisualStudioProject>
+    <VisualBasic LastOpenVersion = "7.10.3077" >
+        <Build>
+            <Settings ReferencePath = "C:\egnsf\collectionUtilities\bin\;C:\egnsf\APress\quickBasic\qbScanner\bin\;C:\egnsf\APress\quickBasic\qbTokenType\bin\;C:\egnsf\APress\quickBasic\qbToken\bin\;C:\egnsf\APress\quickBasic\qbVariableType\bin\;C:\egnsf\utilities\bin\;C:\egnsf\APress\quickBasic\qbVariable\bin\;C:\egnsf\APress\quickBasic\qbOp\bin\;C:\egnsf\APress\quickBasic\qbPolish\bin\;D:\EGN 1348 software as of 2-29-2004\egnsf\Apress\quickBasic\qbTokenType\bin\;D:\EGN 1348 software as of 2-29-2004\egnsf\Apress\quickBasic\qbToken\bin\;D:\EGN 1348 software as of 2-29-2004\egnsf\collectionUtilities\bin\;D:\EGN 1348 software as of 2-29-2004\egnsf\Apress\quickBasic\qbVariableType\bin\;D:\EGN 1348 software as of 2-29-2004\egnsf\Apress\quickBasic\qbVariable\bin\;D:\EGN 1348 software as of 2-29-2004\egnsf\Apress\quickBasic\qbScanner\bin\;D:\EGN 1348 software as of 2-29-2004\egnsf\utilities\bin\;C:\EGN\egnsf\collectionUtilities\bin\;C:\EGN\egnsf\APress\quickBasic\qbArray\bin\;C:\EGN\egnsf\APress\quickBasic\qbVariableType\bin\;C:\EGN\egnsf\APress\quickBasic\qbTokenType\bin\;C:\EGN\egnsf\APress\quickBasic\qbToken\bin\;C:\EGN\egnsf\APress\quickBasic\qbOp\bin\;C:\EGN\egnsf\utilities\bin\;C:\EGN\egnsf\APress\quickBasic\qbScanner\bin\;C:\EGN\egnsf\APress\quickBasic\qbParseTree\bin\;C:\EGN\egnsf\APress\quickBasic\qbPolish\bin\;C:\EGN\egnsf\APress\quickBasic\qbVariable\bin\;D:\EGN 1348 software as of 2-29-2004\egnsf\windowsUtilities\bin\;D:\EGN 1348 software as of 2-29-2004\egnsf\Apress\quickBasic\qbOp\bin\;D:\EGN 1348 software as of 2-29-2004\egnsf\Apress\quickBasic\qbPolish\bin\" >
+                <Config
+                    Name = "Debug"
+                    EnableASPDebugging = "false"
+                    EnableASPXDebugging = "false"
+                    EnableUnmanagedDebugging = "false"
+                    EnableSQLServerDebugging = "false"
+                    RemoteDebugEnabled = "false"
+                    RemoteDebugMachine = ""
+                    StartAction = "Project"
+                    StartArguments = ""
+                    StartPage = ""
+                    StartProgram = ""
+                    StartURL = ""
+                    StartWorkingDirectory = ""
+                    StartWithIE = "true"
+                />
+                <Config
+                    Name = "Release"
+                    EnableASPDebugging = "false"
+                    EnableASPXDebugging = "false"
+                    EnableUnmanagedDebugging = "false"
+                    EnableSQLServerDebugging = "false"
+                    RemoteDebugEnabled = "false"
+                    RemoteDebugMachine = ""
+                    StartAction = "Project"
+                    StartArguments = ""
+                    StartPage = ""
+                    StartProgram = ""
+                    StartURL = ""
+                    StartWorkingDirectory = ""
+                    StartWithIE = "false"
+                />
+            </Settings>
+        </Build>
+        <OtherProjectSettings
+            CopyProjectDestinationFolder = ""
+            CopyProjectUncPath = ""
+            CopyProjectOption = "0"
+            ProjectView = "ProjectFiles"
+            ProjectTrust = "0"
+        />
+    </VisualBasic>
+</VisualStudioProject>
+

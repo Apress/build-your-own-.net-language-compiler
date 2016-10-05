@@ -1,0 +1,26 @@
+
+    ' -----------------------------------------------------------------
+    ' Determine procedure length
+    '
+    '
+    Private Function determineProcedureLength(ByVal strInfile As String, _
+                                              ByVal intStartIndex As Integer, _
+                                              ByVal strType As String) As Integer
+        Dim objRegEx As System.Text.RegularExpressions.Regex
+        Dim objMatch As System.Text.RegularExpressions.Match 
+        Try
+            objRegEx = _
+                New System.Text.RegularExpressions.Regex _
+                    (_OBJutilities.commonRegularExpressions("newlineWebWindows") & "[ ]*End " & strType) 
+            objMatch = objRegEx.Match(strInfile, intStartIndex)
+        Catch ex As Exception
+            errorHandler("Cannot create regular expression or do the match: " & _
+                         Err.Number & " " & Err.Description, _
+                         "determineProcedureLength", _
+                         "Returning zero" & vbNewline & vbNewline & ex.ToString)
+        End Try
+        With objMatch
+            If .Length = 0 Then Return(0)
+            Return(.Index + 1 + .Length - intStartIndex)
+        End With
+    End Function

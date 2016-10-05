@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!-- 
+***********************************************************
+*                                                         *
+* Backus-Naur Form definition of the language BNFanalyzer *
+*                                                         *
+***********************************************************
+ -->
+<BNF>
+<nonterminals>
+<bnfGrammar/>
+<production/>
+<nonTerminal/>
+<productionRHS/>
+<sequenceFactor/>
+<mockRegularExpression/>
+<alternationFactorRHS/>
+<mreFactor/>
+<mrePostfix/>
+</nonterminals>
+<terminals>
+<X_colon__equals_>:=</X_colon__equals_>
+<NEWLINE>NEWLINE</NEWLINE>
+<EOF>EOF</EOF>
+<IDENTIFIER>IDENTIFIER</IDENTIFIER>
+<UPPERCASESTRING>UPPERCASESTRING</UPPERCASESTRING>
+<STRING>STRING</STRING>
+<X_leftParenthesis_>(</X_leftParenthesis_>
+<X_rightParenthesis_>)</X_rightParenthesis_>
+<X_leftBracket_>[</X_leftBracket_>
+<X_rightBracket_>]</X_rightBracket_>
+<X_asterisk_>*</X_asterisk_>
+<X_dash_>-</X_dash_>
+<X_verticalStroke_>|</X_verticalStroke_>
+</terminals>
+<bnfProductions>
+<GS name="bnfGrammar" BNF="bnfGrammar := production +">
+<OP name="production">
+<OP name="oneTripRepeat">
+<production/>
+</OP><!-- End oneTripRepeat -->
+</OP><!-- End production -->
+</GS><!-- End bnfGrammar -->
+<GS name="production" BNF="production := [ nonTerminal &quot;:=&quot; productionRHS ] ( NEWLINE | EOF )">
+<OP name="production">
+<OP name="sequence">
+<OP name="optionalSequence">
+<OP name="sequence">
+<nonTerminal/>
+<OP name="sequence">
+<X_doubleQuote__colon__equals__doubleQuote_/>
+<productionRHS/>
+</OP><!-- End sequence -->
+</OP><!-- End sequence -->
+</OP><!-- End optionalSequence -->
+<OP name="alternatives">
+<NEWLINE/>
+<EOF/>
+</OP><!-- End alternatives -->
+</OP><!-- End sequence -->
+</OP><!-- End production -->
+</GS><!-- End production -->
+<GS name="nonTerminal" BNF="nonTerminal := IDENTIFIER">
+<OP name="production">
+<IDENTIFIER/>
+</OP><!-- End production -->
+</GS><!-- End nonTerminal -->
+<GS name="productionRHS" BNF="productionRHS := sequenceFactor [ sequenceFactor ]">
+<OP name="production">
+<OP name="sequence">
+<sequenceFactor/>
+<OP name="optionalSequence">
+<sequenceFactor/>
+</OP><!-- End optionalSequence -->
+</OP><!-- End sequence -->
+</OP><!-- End production -->
+</GS><!-- End productionRHS -->
+<GS name="production" BNF="production := NEWLINE">
+<OP name="production">
+<NEWLINE/>
+</OP><!-- End production -->
+</GS><!-- End production -->
+<GS name="sequenceFactor" BNF="sequenceFactor := mockRegularExpression [ alternationFactorRHS ]">
+<OP name="production">
+<OP name="sequence">
+<mockRegularExpression/>
+<OP name="optionalSequence">
+<alternationFactorRHS/>
+</OP><!-- End optionalSequence -->
+</OP><!-- End sequence -->
+</OP><!-- End production -->
+</GS><!-- End sequenceFactor -->
+<GS name="mockRegularExpression" BNF="mockRegularExpression := mreFactor [ mrePostfix ]">
+<OP name="production">
+<OP name="sequence">
+<mreFactor/>
+<OP name="optionalSequence">
+<mrePostfix/>
+</OP><!-- End optionalSequence -->
+</OP><!-- End sequence -->
+</OP><!-- End production -->
+</GS><!-- End mockRegularExpression -->
+<GS name="alternationFactorRHS" BNF="alternationFactorRHS := &quot;|&quot; mockRegularExpression [ alternationFactorRHS ]">
+<OP name="production">
+<OP name="sequence">
+<X_doubleQuote__verticalStroke__doubleQuote_/>
+<OP name="sequence">
+<mockRegularExpression/>
+<OP name="optionalSequence">
+<alternationFactorRHS/>
+</OP><!-- End optionalSequence -->
+</OP><!-- End sequence -->
+</OP><!-- End sequence -->
+</OP><!-- End production -->
+</GS><!-- End alternationFactorRHS -->
+<GS name="mreFactor" BNF="mreFactor := nonTerminal | UPPERCASESTRING | STRING | &quot;(&quot; productionRHS &quot;)&quot; | &quot;[&quot; productionRHS &quot;]&quot;">
+<OP name="production">
+<OP name="sequence">
+<OP name="alternatives">
+<OP name="alternatives">
+<OP name="alternatives">
+<nonTerminal/>
+<UPPERCASESTRING/>
+</OP><!-- End alternatives -->
+<STRING/>
+</OP><!-- End alternatives -->
+<X_doubleQuote__leftParenthesis__doubleQuote_/>
+</OP><!-- End alternatives -->
+<OP name="sequence">
+<productionRHS/>
+<OP name="sequence">
+<OP name="alternatives">
+<X_doubleQuote__rightParenthesis__doubleQuote_/>
+<X_doubleQuote__leftBracket__doubleQuote_/>
+</OP><!-- End alternatives -->
+<OP name="sequence">
+<productionRHS/>
+<X_doubleQuote__rightBracket__doubleQuote_/>
+</OP><!-- End sequence -->
+</OP><!-- End sequence -->
+</OP><!-- End sequence -->
+</OP><!-- End sequence -->
+</OP><!-- End production -->
+</GS><!-- End mreFactor -->
+<GS name="mrePostfix" BNF="mrePostfix := &quot;*&quot; | &quot;-&quot;">
+<OP name="production">
+<OP name="alternatives">
+<X_doubleQuote__asterisk__doubleQuote_/>
+<X_doubleQuote__dash__doubleQuote_/>
+</OP><!-- End alternatives -->
+</OP><!-- End production -->
+</GS><!-- End mrePostfix -->
+</bnfProductions>
+</BNF>

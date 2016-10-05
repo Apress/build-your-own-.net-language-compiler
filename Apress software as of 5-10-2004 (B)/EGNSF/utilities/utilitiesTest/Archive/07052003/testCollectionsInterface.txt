@@ -1,0 +1,19 @@
+    
+    ' -----------------------------------------------------------------
+    ' Show the form, to test collections
+    '
+    '
+    Private Sub testCollectionsInterface
+        Dim frmTestCollections As collectionTest
+        Try
+            frmTestCollections = New collectionTest
+        Catch  
+            errorHandler("Cannot create the collectionTest form: " & _
+                         Err.Number & " " & Err.Description, _
+                         "testCollectionsInterface", _
+                         "Returning to main form")
+            Return                         
+        End Try  
+        frmTestCollections.ShowDialog
+        frmTestCollections.Dispose      
+    End Sub    

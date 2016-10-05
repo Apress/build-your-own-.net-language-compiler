@@ -1,0 +1,108 @@
+1 opRem 0: ***** ' ***** CALCULATION OF N FACTORIAL *****
+2 opRem 0: ***** DIM N
+3 opRem 0: ***** DIM F
+4 opRem 0: ***** PRINT "ENTER N"
+5 opPushLiteral "ENTER N": Push string constant
+6 opPushLiteral String:vtString(ChrW(13) & ChrW(10)): Terminate print line
+7 opConcat : opConcat(s,s): Replaces stack(top) and stack(top-1) with stack(top-1)&stack(top) 
+8 opPrint : opPrint(x): Prints (and removes) value at top of the stack 
+9 opRem 0: ***** INPUT N
+10 opInput : Read from standard input to stack(top)
+11 opPop 1: Pop the stack to N
+12 opRem 0: ***** IF N<>INT(N) THEN
+13 opNop 0: Push lValue N  contents of memory location
+14 opPushLiteral 1: Push indirect address
+15 opPushIndirect : Push contents of memory location
+16 opNop 0: Push lValue N  contents of memory location
+17 opPushLiteral 1: Push indirect address
+18 opPushIndirect : Push contents of memory location
+19 opInt : Round to integer function
+20 opPushNE : Replace stack(top) by opPushNE(stack(top-1), stack(top))
+21 opJumpZ 36: Jump to False code
+22 opRem 0: ***** PRINT "N VALUE " & N & " IS NOT AN INTEGER"
+23 opPushLiteral "N VALUE ": Push string constant
+24 opNop 0: Push lValue N  contents of memory location
+25 opPushLiteral 1: Push indirect address
+26 opPushIndirect : Push contents of memory location
+27 opConcat : Replace stack(top) by opConcat(stack(top-1), stack(top))
+28 opPushLiteral " IS NOT AN INTEGER": Push string constant
+29 opConcat : Replace stack(top) by opConcat(stack(top-1), stack(top))
+30 opPushLiteral String:vtString(ChrW(13) & ChrW(10)): Terminate print line
+31 opConcat : opConcat(s,s): Replaces stack(top) and stack(top-1) with stack(top-1)&stack(top) 
+32 opPrint : opPrint(x): Prints (and removes) value at top of the stack 
+33 opRem 0: ***** END
+34 opEnd 0: End of processing
+35 opRem 0: ***** END IF
+36 opLabel "LBL1": End If
+37 opRem 0: ***** IF N<=0 THEN
+38 opNop 0: Push lValue N  contents of memory location
+39 opPushLiteral 1: Push indirect address
+40 opPushIndirect : Push contents of memory location
+41 opPushLiteral 0: Push numeric constant
+42 opPushLE : Replace stack(top) by opPushLE(stack(top-1), stack(top))
+43 opJumpZ 58: Jump to False code
+44 opRem 0: ***** PRINT "N VALUE " & N & " IS NOT A POSITIVE NUMBER"
+45 opPushLiteral "N VALUE ": Push string constant
+46 opNop 0: Push lValue N  contents of memory location
+47 opPushLiteral 1: Push indirect address
+48 opPushIndirect : Push contents of memory location
+49 opConcat : Replace stack(top) by opConcat(stack(top-1), stack(top))
+50 opPushLiteral " IS NOT A POSITIVE NUMBER": Push string constant
+51 opConcat : Replace stack(top) by opConcat(stack(top-1), stack(top))
+52 opPushLiteral String:vtString(ChrW(13) & ChrW(10)): Terminate print line
+53 opConcat : opConcat(s,s): Replaces stack(top) and stack(top-1) with stack(top-1)&stack(top) 
+54 opPrint : opPrint(x): Prints (and removes) value at top of the stack 
+55 opRem 0: ***** END
+56 opEnd 0: End of processing
+57 opRem 0: ***** END IF
+58 opLabel "LBL2": End If
+59 opRem 0: ***** F = 1
+60 opPushLiteral 1: Push numeric constant
+61 opPop 2: Assign expression 1 to F
+62 opRem 0: ***** DIM N2
+63 opRem 0: ***** FOR N2 = N TO 2 STEP -1
+64 opPushLiteral 3: Push the control variable N2
+65 opNop 0: ctlVariable->ctlVariable,initialValue
+66 opPushLiteral 1: Push indirect address
+67 opPushIndirect : Push contents of memory location
+68 opPopIndirect : ctlVariable,initialValue->ctlVariable
+69 opPushLiteral 2: ctlVariable->ctlVariable,finalValue
+70 opRotate 1: ctlVariable,finalValue->finalValue,ctlVariable
+71 opPushLiteral 0: ctlVariable,initialValue->ctlVariable,finalValue,stepValue
+72 opPushLiteral 1: Push numeric constant
+73 opSubtract : Replace stack(top) by opSubtract(stack(top-1), stack(top))
+74 opRotate 1: finalValue,ctlVariable,stepValue->finalValue,stepValue,ctlVariable
+75 opLabel "LBL3": For loop starts here
+76 opForTest 89: Test For condition using the stack frame
+77 opRem 0: ***** F = F * N2
+78 opNop 0: Push lValue F  contents of memory location
+79 opPushLiteral 2: Push indirect address
+80 opPushIndirect : Push contents of memory location
+81 opNop 0: Push lValue N2  contents of memory location
+82 opPushLiteral 3: Push indirect address
+83 opPushIndirect : Push contents of memory location
+84 opMultiply : Replace stack(top) by opMultiply(stack(top-1), stack(top))
+85 opPop 2: Assign expression F * N2 to F
+86 opRem 0: ***** NEXT N2
+87 opForIncrement : For loop increment or decrement
+88 opJump 75: Jump back to start of For loop
+89 opLabel "LBL4": For loop exit target
+90 opPopOff : Remove the For stack frame
+91 opPopOff : opPopOff(x): Removes stack(top) without sending it to a memory location 
+92 opPopOff : opPopOff(x): Removes stack(top) without sending it to a memory location 
+93 opRem 0: ***** PRINT "THE FACTORIAL OF " & N & " IS " & F
+94 opPushLiteral "THE FACTORIAL OF ": Push string constant
+95 opNop 0: Push lValue N  contents of memory location
+96 opPushLiteral 1: Push indirect address
+97 opPushIndirect : Push contents of memory location
+98 opConcat : Replace stack(top) by opConcat(stack(top-1), stack(top))
+99 opPushLiteral " IS ": Push string constant
+100 opConcat : Replace stack(top) by opConcat(stack(top-1), stack(top))
+101 opNop 0: Push lValue F  contents of memory location
+102 opPushLiteral 2: Push indirect address
+103 opPushIndirect : Push contents of memory location
+104 opConcat : Replace stack(top) by opConcat(stack(top-1), stack(top))
+105 opPushLiteral String:vtString(ChrW(13) & ChrW(10)): Terminate print line
+106 opConcat : opConcat(s,s): Replaces stack(top) and stack(top-1) with stack(top-1)&stack(top) 
+107 opPrint : opPrint(x): Prints (and removes) value at top of the stack 
+108 opEnd : Generated at end of code

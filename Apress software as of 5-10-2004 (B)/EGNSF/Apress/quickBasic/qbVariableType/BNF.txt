@@ -1,0 +1,16 @@
+typeSpecification := baseType | udt                             
+baseType := simpleType | variantType | arrayType                
+simpleType := [ VT ] typeName                                     
+typeName := BOOLEAN|BYTE|INTEGER|LONG|SINGLE|DOUBLE|STRING|     
+            UNKNOWN|NULL                                        
+variantType := abstractVariantType COMMA varType                
+varType := simpleType|(arrayType)                               
+arrayType := [VT] ARRAY,arrType,boundList                       
+arrType := simpleType | abstractVariantType | parUDT            
+parUDT := LEFTPARENTHESIS udt RIGHTPARENTHESIS                  
+udt := [ VT ] UDT,typeList                                        
+typeList := parMemberType [ COMMA typeList ]                    
+parMemberType := LEFTPAR MEMBERNAME,baseType RIGHTPAR           
+abstractVariantType := [ VT ] VARIANT                             
+boundList := boundListEntry | boundListEntry COMMA boundList    
+boundListEntry := BOUNDINTEGER,BOUNDINTEGER                     

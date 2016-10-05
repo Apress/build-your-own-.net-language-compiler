@@ -1,0 +1,18 @@
+regex := sequenceFactor [ regex ]
+sequenceFactor := alternationFactor alternationRHS
+alternationFactor := ( postfixFactor [ postfixOp ] ) | zeroOperandOp
+alternationRHS := STROKE sequenceFactor
+postfixFactor := string | charset | ( regex )
+string := logicalChar [ string ]
+postfixOp := ASTERISK | PLUS | repeater
+
+repeater := LEFT_BRACE [ INTEGER ] [ COMMA ] [ INTEGER ] RIGHT_BRACE
+
+zeroOperandOp := CARAT | DOLLAR_SIGN
+charset := LEFT_BRACKET charsetExpression RIGHT_BRACKET
+charsetExpression := charsetRange charsetExpression
+charsetRange := logicalChar [ DASH logicalChar ]
+logicalChar := ordinaryChar | hexSequence | escapeSequence
+ordinaryChar := ORDINARYCHAR ' Where an ORDINARY CHAR is [^\*\+\^\$\\\-\{\}\[\]] 
+hexSequence :=  HEXSEQUENCE ' Where a hex sequence is \\x[0123456789ABCDEFabcdef]+
+escapeSequence := ESCAPESEQUENCE ' Where an esc sequence is  \\[\*\+\^\$\\\-\{\}\[\]]

@@ -1,0 +1,166 @@
+<VisualStudioProject>
+    <VisualBasic
+        ProjectType = "Local"
+        ProductVersion = "7.10.3077"
+        SchemaVersion = "2.0"
+        ProjectGuid = "{69BB02F6-1E9C-4015-B515-F7B2D5F443F9}"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                AssemblyKeyContainerName = ""
+                AssemblyName = "creditEvaluation"
+                AssemblyOriginatorKeyFile = ""
+                AssemblyOriginatorKeyMode = "None"
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Grid"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "WinExe"
+                OptionCompare = "Binary"
+                OptionExplicit = "On"
+                OptionStrict = "Off"
+                RootNamespace = "creditEvaluation"
+                StartupObject = "creditEvaluation.Form1"
+            >
+                <Config
+                    Name = "Debug"
+                    BaseAddress = "285212672"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = ""
+                    DefineDebug = "true"
+                    DefineTrace = "true"
+                    DebugSymbols = "true"
+                    IncrementalBuild = "true"
+                    Optimize = "true"
+                    OutputPath = "bin\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "true"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "1"
+                />
+                <Config
+                    Name = "Release"
+                    BaseAddress = "285212672"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = ""
+                    DefineDebug = "false"
+                    DefineTrace = "true"
+                    DebugSymbols = "false"
+                    IncrementalBuild = "false"
+                    Optimize = "true"
+                    OutputPath = "bin\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "1"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                />
+                <Reference
+                    Name = "System.Data"
+                    AssemblyName = "System.Data"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                />
+                <Reference
+                    Name = "System.Windows.Forms"
+                    AssemblyName = "System.Windows.Forms"
+                />
+                <Reference
+                    Name = "System.XML"
+                    AssemblyName = "System.Xml"
+                />
+                <Reference
+                    Name = "collectionUtilities"
+                    AssemblyName = "collectionUtilities"
+                    HintPath = "..\..\collectionUtilities\bin\collectionUtilities.dll"
+                />
+                <Reference
+                    Name = "windowsUtilities"
+                    AssemblyName = "windowsUtilities"
+                    HintPath = "..\..\windowsUtilities\bin\windowsUtilities.dll"
+                />
+                <Reference
+                    Name = "utilities"
+                    AssemblyName = "utilities"
+                    HintPath = "..\..\utilities\bin\utilities.dll"
+                />
+                <Reference
+                    Name = "quickBasicEngine"
+                    AssemblyName = "quickBasicEngine"
+                    HintPath = "..\quickBasic\quickBasicEngine\bin\quickBasicEngine.dll"
+                />
+                <Reference
+                    Name = "qbScanner"
+                    AssemblyName = "qbScanner"
+                    HintPath = "..\quickBasic\qbScanner\bin\qbScanner.dll"
+                />
+                <Reference
+                    Name = "qbTokenType"
+                    AssemblyName = "qbTokenType"
+                    HintPath = "..\quickBasic\qbTokenType\bin\qbTokenType.dll"
+                />
+                <Reference
+                    Name = "qbToken"
+                    AssemblyName = "qbToken"
+                    HintPath = "..\quickBasic\qbToken\bin\qbToken.dll"
+                />
+            </References>
+            <Imports>
+                <Import Namespace = "Microsoft.VisualBasic" />
+                <Import Namespace = "System" />
+                <Import Namespace = "System.Collections" />
+                <Import Namespace = "System.Data" />
+                <Import Namespace = "System.Drawing" />
+                <Import Namespace = "System.Diagnostics" />
+                <Import Namespace = "System.Windows.Forms" />
+            </Imports>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "AssemblyInfo.vb"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Form1.vb"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Form1.resx"
+                    DependentUpon = "Form1.vb"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "parseRule.vb"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "readMe.txt"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "ruleEntry.vb"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ruleEntry.resx"
+                    DependentUpon = "ruleEntry.vb"
+                    BuildAction = "EmbeddedResource"
+                />
+            </Include>
+        </Files>
+    </VisualBasic>
+</VisualStudioProject>
+

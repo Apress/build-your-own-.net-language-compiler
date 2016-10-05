@@ -1,0 +1,7 @@
+frmBNFanalyzer = 66, 66, 576, 440, , 22, 22, 547, 462, C
+frmRefManOptions = 110, 110, 785, 503, , 132, 132, 724, 532, C
+clsUtilities = 27, 27, 740, 421, Z
+frmRRdiagram = 81, 81, 555, 475, , 54, 54, 528, 448, C
+modBNFanalyzer = 54, 54, 738, 448, 
+frmShowFile = 88, 88, 530, 481, , 66, 66, 640, 459, C
+frmErrorHandler = 0, 0, 0, 0, C, 176, 176, 558, 569, C
